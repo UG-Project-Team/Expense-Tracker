@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit and Save Entries</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Progress Bar */
+        .top-progress-container {
+            width: 100%;
+            background-color: #ddd;
+            height: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .top-progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out, background-color 0.5s ease;
+        }
+
+        .days-container, .weeks-container, .months-container, .years-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .day-card, .week-card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .day-card:hover, .week-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .day-label, .week-label {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .day-total {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .entry-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .entry-table th,
+        .entry-table td {
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .entry-table th {
+            background-color: #f0f0f0;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .entry-table td {
+            background-color: #fafafa;
+        }
+
+        .entry-table tr:hover td {
+            background-color: #e6f7ff;
+            transition: background-color 0.3s;
+        }
+        .editable-cell {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.editable-cell:hover {
+    background-color: #f0f8ff;
+}
+
+.editable-cell:focus {
+    background-color: #ffffcc;
+    outline: none;
+    border: 1px solid #add8e6;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Edit and Save Entries</h1>
+
+    <div class="top-progress-container">
+        <div id="top-progress-bar" class="top-progress-bar" style="width: 0%; background-color: green;"></div>
+    </div>
+
+    <div class="section-title">Days</div>
+    <div id="days-container" class="days-container"></div>
+
+    <div class="section-title">Weeks</div>
+    <div id="weeks-container" class="weeks-container"></div>
+
+    <div class="section-title">Months</div>
+    <div id="months-container" class="months-container"></div>
+
+    <div class="section-title">Years</div>
+    <div id="years-container" class="years-container"></div>
+
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Entries for <span id="modal-label"></span></h2>
+            <table class="entry-table">
+                <thead>
+                    <tr><th>Item</th><th>Amount ($)</th></tr>
+                </thead>
+                <tbody id="entries-list"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const currentDayEntries = {};
+        const weekSummaries = [];
+        const monthSummaries = [];
+        const yearSummaries = [];
+        let currentWeek = 1;
+        let currentMonth = 1;
+        let currentYear = 1;
+
+        async function fetchEntries() {
+            try {
+                const response = await axios.get('http://localhost:3000/api/entries');
+                const entries = response.data;
+
+                const daysContainer = document.getElementById('days-container');
+                const weeksContainer = document.getElementById('weeks-container');
+                const monthsContainer = document.getElementById('months-container');
+                const yearsContainer = document.getElementById('years-container');
+
+                daysContainer.innerHTML = '';
+                weeksContainer.innerHTML = '';
+                monthsContainer.innerHTML = '';
+                yearsContainer.innerHTML = '';
+
+                let weekData = {};
+                let dayCounter = 1;
+
+                entries.forEach((entry) => {
+                    if (!entry || !entry.day || !entry.data) return;
+
+                    currentDayEntries[entry.day] = entry.data;
+
+                    // Create Day Card
+                    const dayCard = document.createElement('div');
+                    dayCard.classList.add('day-card');
+                    dayCard.innerHTML = `
+                        <div class="day-label">Day ${dayCounter}</div>
+                        <div class="day-total">$${Object.values(entry.data).reduce((a, b) => a + b, 0).toFixed(2)}</div>
+                    `;
+                    dayCard.onclick = () => openModal(entry.day, entry.data);
+                    daysContainer.appendChild(dayCard);
+
+                    // Aggregate Weekly Data
+                    for (const [item, amount] of Object.entries(entry.data)) {
+                        weekData[item] = (weekData[item] || 0) + amount;
+                    }
+
+                    if (dayCounter % 5 === 0) {
+                        createSummaryCard(weekData, `Week ${currentWeek}`, weeksContainer);
+                        weekSummaries.push({ label: `Week ${currentWeek}`, data: { ...weekData } });
+                        weekData = {};
+                        currentWeek++;
+                    }
+
+                    if (weekSummaries.length === 4) {
+                        createMonthSummary(weekSummaries.splice(0, 4), monthsContainer);
+                    }
+
+                    if (monthSummaries.length === 4) {
+                        createYearSummary(monthSummaries.splice(0, 4), yearsContainer);
+                    }
+
+                    dayCounter++;
+                });
+            } catch (error) {
+                console.error('Error fetching entries:', error);
+            }
+        }
+
+        function createSummaryCard(data, label, container, isYear = false) {
+            const total = Object.values(data).reduce((a, b) => a + b, 0);
+            const card = document.createElement('div');
+            card.classList.add('week-card');
+            if (isYear) card.style.backgroundColor = '#ffd700';
+            card.innerHTML = `<div class="week-label">${label}</div><div class="day-total">Total: $${total.toFixed(2)}</div>`;
+            card.onclick = () => openModal(label, data);
+            container.appendChild(card);
+        }
+
+        function createMonthSummary(weeks, container) {
+            const data = {};
+            weeks.forEach((week) => {
+                for (const [item, amount] of Object.entries(week.data)) {
+                    data[item] = (data[item] || 0) + amount;
+                }
+            });
+            createSummaryCard(data, `Month ${currentMonth}`, container);
+            monthSummaries.push({ label: `Month ${currentMonth}`, data });
+            currentMonth++;
+        }
+
+        function createYearSummary(months, container) {
+            const data = {};
+            months.forEach((month) => {
+                for (const [item, amount] of Object.entries(month.data)) {
+                    data[item] = (data[item] || 0) + amount;
+                }
+            });
+            createSummaryCard(data, `Year ${currentYear}`, container, true);
+            yearSummaries.push({ label: `Year ${currentYear}`, data });
+            currentYear++;
+        }
+
+        function openModal(label, data) {
+            document.getElementById('modal-label').textContent = label;
+            const entriesList = document.getElementById('entries-list');
+            entriesList.innerHTML = '';
+            Object.entries(data).forEach(([item, amount]) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${item}</td><td>$${amount.toFixed(2)}</td>`;
+                entriesList.appendChild(row);
+            });
+            document.getElementById('details-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('details-modal').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchEntries);
+        function makeTableEditable(entries, day) {
+    const entriesList = document.getElementById("entries-list");
+    entriesList.innerHTML = "";
+
+    Object.entries(entries).forEach(([item, amount]) => {
+        const row = document.createElement("tr");
+        const itemCell = document.createElement("td");
+        const amountCell = document.createElement("td");
+
+        itemCell.textContent = item;
+        amountCell.textContent = `$${amount.toFixed(2)}`;
+
+        // Make the amount cell editable
+        amountCell.setAttribute("contenteditable", "true");
+        amountCell.classList.add("editable-cell");
+        amountCell.onfocus = () => {
+            amountCell.textContent = amount; // Remove "$" when editing
+        };
+        amountCell.onblur = async () => {
+            const newAmount = parseFloat(amountCell.textContent.trim());
+            if (!isNaN(newAmount) && newAmount !== amount) {
+                try {
+                    // Send updated data to the backend
+                    await axios.post("http://localhost:3000/api/update-entry", {
+                        day,
+                        item,
+                        newAmount,
+                    });
+                    amountCell.textContent = `$${newAmount.toFixed(2)}`; // Update display with "$"
+                    console.log(`Updated ${item} to ${newAmount} for ${day}`);
+                } catch (error) {
+                    console.error("Error updating entry:", error);
+                    alert("Failed to save changes. Please try again.");
+                    amountCell.textContent = `$${amount.toFixed(2)}`; // Revert on error
+                }
+            } else {
+                amountCell.textContent = `$${amount.toFixed(2)}`; // Revert on invalid input
+            }
+        };
+
+        row.appendChild(itemCell);
+        row.appendChild(amountCell);
+        entriesList.appendChild(row);
+    });
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Expenses Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin: 20px 0;
+        }
+
+        /* General button styling */
+        .add-item {
+            color: #333;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Hover state */
+        .add-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Selected state: green background */
+        .add-item.selected {
+            background-color: #90ee90 !important; /* Force green on selected */
+        }
+
+        /* Specific colors for bills */
+        .add-item.water {
+            background-color: #b3e5fc; /* Pastel blue */
+        }
+
+        .add-item.electric {
+            background-color: #ffcc80; /* Pastel orange */
+        }
+
+        .add-item.gas {
+            background-color: #ffab91; /* Pastel light red */
+        }
+
+        .add-item.rent {
+            background-color: #d1c4e9; /* Pastel lavender */
+        }
+
+        .add-item.internet {
+            background-color: #80deea; /* Pastel teal */
+        }
+
+        .add-item.cable {
+            background-color: #ffe082; /* Pastel yellow */
+        }
+
+        .add-item.phone {
+            background-color: #b2dfdb; /* Pastel greenish blue */
+        }
+
+        .add-item.trash {
+            background-color: #ffd54f; /* Pastel yellow-orange */
+        }
+
+        .add-item.health {
+            background-color: #ce93d8; /* Pastel purple */
+        }
+
+        .add-item.car {
+            background-color: #bcaaa4; /* Pastel brown */
+        }
+
+        .add-item.life {
+            background-color: #ffab91; /* Pastel pink-orange */
+        }
+
+        .add-item.water-heater {
+            background-color: #c5e1a5; /* Pastel green */
+        }
+
+        .add-item.sewer {
+            background-color: #9fa8da; /* Pastel blue-lavender */
+        }
+
+        .add-item.property {
+            background-color: #fff59d; /* Pastel light yellow */
+        }
+
+        .add-item.student-loan {
+            background-color: #a5d6a7; /* Pastel green */
+        }
+
+        .add-item.maintenance {
+            background-color: #ffecb3; /* Pastel light yellow */
+        }
+
+        /* Specific colors for groceries */
+        .add-item.bread {
+            background-color: #ffeb99; /* Pastel yellow */
+        }
+
+        .add-item.milk {
+            background-color: #e0f7fa; /* Pastel cyan */
+        }
+        
+        .add-item.vegetables {
+            background-color: #c5e1a5; /* Pastel green */
+        }
+
+        .add-item.fruits {
+            background-color: #ffccbc; /* Pastel peach */
+        }
+
+        .add-item.snacks {
+            background-color: #ffe0b2; /* Pastel orange */
+        }
+
+        .add-item.meat {
+            background-color: #ffab91; /* Pastel pinkish red */
+        }
+
+        .add-item.dairy {
+            background-color: #c5cae9; /* Pastel blue */
+        }
+
+        .add-item.grains {
+            background-color: #ffe082; /* Pastel yellow */
+        }
+
+        .add-item.oils {
+            background-color: #ffecb3; /* Pastel light yellow */
+        }
+
+        .add-item.cereals {
+            background-color: #b3e5fc; /* Pastel blue */
+        }
+
+        .add-item.eggs {
+            background-color: #fff9c4; /* Pastel yellow */
+        }
+
+        .add-item.spices {
+            background-color: #e6ee9c; /* Pastel green */
+        }
+
+        .add-item.frozen {
+            background-color: #b2dfdb; /* Pastel teal */
+        }
+
+        .add-item.drinks {
+            background-color: #b39ddb; /* Pastel purple */
+        }
+
+        .add-item.sweets {
+            background-color: #ffccbc; /* Pastel peach */
+        }
+
+        /* Specific colors for transportation */
+        .add-item.fuel {
+            background-color: #ffe0b2; /* Pastel orange */
+        }
+
+        .add-item.public-transport {
+            background-color: #b3e5fc; /* Pastel blue */
+        }
+
+        .add-item.parking {
+            background-color: #ffccbc; /* Pastel peach */
+        }
+
+        .add-item.tolls {
+            background-color: #c5e1a5; /* Pastel green */
+        }
+
+        .add-item.taxi {
+            background-color: #ffd54f; /* Pastel yellow */
+        }
+
+        .add-item.bicycle {
+            background-color: #80deea; /* Pastel teal */
+        }
+
+        .add-item.registration {
+            background-color: #ce93d8; /* Pastel purple */
+        }
+
+        .add-item.car-insurance {
+            background-color: #bcaaa4; /* Pastel brown */
+        }
+
+        .add-item.car-wash {
+            background-color: #ffcc80; /* Pastel light orange */
+        }
+
+        .add-item.transit-pass {
+            background-color: #c5cae9; /* Pastel blue */
+        }
+
+        .add-item.train-tickets {
+            background-color: #ffecb3; /* Pastel light yellow */
+        }
+
+        .add-item.flight-tickets {
+            background-color: #9fa8da; /* Pastel blue-lavender */
+        }
+
+        .add-item.car-maintenance {
+            background-color: #a5d6a7; /* Pastel green */
+        }
+
+        .add-item.roadside {
+            background-color: #ffe082; /* Pastel yellow */
+        }
+
+        .add-item.scooter-rentals {
+            background-color: #b39ddb; /* Pastel purple */
+        }
+
+    /*Personal */
+        .add-item.haircuts {
+        background-color: #ffeb99; /* Pastel yellow */
+    }
+
+    .add-item.shampoo-conditioner {
+        background-color: #b3e5fc; /* Pastel blue */
+    }
+
+    .add-item.skincare-products {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.manicure-pedicure {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.hair-styling-products {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.body-lotion {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.razors-shaving {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.dental-care {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.spa-treatments {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.makeup-products {
+        background-color: #c5cae9; /* Pastel blue */
+    }
+
+    .add-item.perfume-cologne {
+        background-color: #9fa8da; /* Pastel blue-lavender */
+    }
+
+    .add-item.hair-coloring {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.sunscreen {
+        background-color: #b39ddb; /* Pastel purple */
+    }
+
+    .add-item.eyebrow-threading {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.body-scrubs {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+
+        /* Specific colors for household supplies */
+        .add-item.laundry {
+            background-color: #ffeb99; /* Pastel yellow */
+        }
+
+        .add-item.dish-soap {
+            background-color: #e0f7fa; /* Pastel cyan */
+        }
+
+        .add-item.paper-towels {
+            background-color: #ffccbc; /* Pastel peach */
+        }
+
+        .add-item.toilet-paper {
+            background-color: #c5e1a5; /* Pastel green */
+        }
+
+        .add-item.trash-bags {
+            background-color: #ffd54f; /* Pastel yellow */
+        }
+
+        .add-item.cleaning-supplies {
+            background-color: #80deea; /* Pastel teal */
+        }
+
+        .add-item.sponges {
+            background-color: #ce93d8; /* Pastel purple */
+        }
+
+        .add-item.light-bulbs {
+            background-color: #ffecb3; /* Pastel light yellow */
+        }
+
+        .add-item.foil {
+            background-color: #b3e5fc; /* Pastel blue */
+        }
+
+        .add-item.plastic-wrap {
+            background-color: #ffab91; /* Pastel pinkish red */
+        }
+
+        .add-item.batteries {
+            background-color: #c5cae9; /* Pastel blue */
+        }
+
+        .add-item.air-fresheners {
+            background-color: #b39ddb; /* Pastel purple */
+        }
+
+        .add-item.mops {
+            background-color: #a5d6a7; /* Pastel green */
+        }
+
+        .add-item.vacuum-bags {
+            background-color: #ffd54f; /* Pastel yellow */
+        }
+
+        .add-item.gardening {
+            background-color: #b2dfdb; /* Pastel teal */
+        }
+
+        /* Specific colors for dining out */
+        .add-item.breakfast {
+            background-color: #ffe082; /* Pastel yellow */
+        }
+
+        .add-item.lunch {
+            background-color: #ffcc80; /* Pastel orange */
+        }
+
+        .add-item.dinner {
+            background-color: #ffab91; /* Pastel light red */
+        }
+
+        .add-item.fast-food {
+            background-color: #ffccbc; /* Pastel peach */
+        }
+
+        .add-item.coffee-shop {
+            background-color: #b3e5fc; /* Pastel blue */
+        }
+
+        .add-item.takeout {
+            background-color: #c5e1a5; /* Pastel green */
+        }
+
+        .add-item.catering {
+            background-color: #ffe0b2; /* Pastel light orange */
+        }
+
+        .add-item.snacks {
+            background-color: #c5cae9; /* Pastel blue */
+        }
+
+        .add-item.food-trucks {
+            background-color: #ce93d8; /* Pastel purple */
+        }
+
+        .add-item.ice-cream {
+            background-color: #b2dfdb; /* Pastel teal */
+        }
+
+        .add-item.buffet {
+            background-color: #ffecb3; /* Pastel light yellow */
+        }
+
+        .add-item.bbq {
+            background-color: #ffd54f; /* Pastel yellow */
+        }
+
+        .add-item.dine-in {
+            background-color: #bcaaa4; /* Pastel brown */
+        }
+
+        .add-item.food-tasting {
+            background-color: #9fa8da; /* Pastel blue-lavender */
+        }
+
+        .add-item.seasonal-food {
+            background-color: #ffccbc; /* Pastel peach */
+        }
+        
+    /*office supplies*/
+    .add-item.notebooks {
+        background-color: #ffe0b2; /* Pastel orange */
+    }
+
+    .add-item.pens {
+        background-color: #b3e5fc; /* Pastel blue */
+    }
+
+    .add-item.highlighters {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.paper {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.folders {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.sticky-notes {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.tape-glue {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.stapler {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.index-cards {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.desk-organizers {
+        background-color: #c5cae9; /* Pastel blue */
+    }
+
+    .add-item.whiteboard-markers {
+        background-color: #9fa8da; /* Pastel blue-lavender */
+    }
+
+    .add-item.scissors {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.postage-stamps {
+        background-color: #b39ddb; /* Pastel purple */
+    }
+
+    .add-item.file-organizers {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.computer-accessories {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+    
+    /*Entertainment */
+    .add-item.movie-tickets {
+        background-color: #ffeb99; /* Pastel yellow */
+    }
+
+    .add-item.streaming {
+        background-color: #b3e5fc; /* Pastel blue */
+    }
+
+    .add-item.video-games {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.board-games {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.concert-tickets {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.event-tickets {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.ebooks {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.music-downloads {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.magazines {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.outdoor-activities {
+        background-color: #c5cae9; /* Pastel blue */
+    }
+
+    .add-item.amusement-park {
+        background-color: #9fa8da; /* Pastel blue-lavender */
+    }
+
+    .add-item.escape-room {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.karaoke {
+        background-color: #b39ddb; /* Pastel purple */
+    }
+
+    .add-item.classes {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.hobby-supplies {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+
+    /*Shopping */
+    .add-item.clothing {
+        background-color: #ffeb99; /* Pastel yellow */
+    }
+
+    .add-item.shoes {
+        background-color: #b3e5fc; /* Pastel blue */
+    }
+
+    .add-item.accessories {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.electronics {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.appliances {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.furniture {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.books {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.gifts {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.baby-products {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.kitchen-supplies {
+        background-color: #c5cae9; /* Pastel blue */
+    }
+
+    .add-item.beauty-products {
+        background-color: #9fa8da; /* Pastel blue-lavender */
+    }
+
+    .add-item.fitness-gear {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.gadgets {
+        background-color: #b39ddb; /* Pastel purple */
+    }
+
+    .add-item.seasonal-items {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.art-supplies {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+
+    /*Travel*/
+    .add-item.flight-tickets {
+        background-color: #ffeb99; /* Pastel yellow */
+    }
+
+    .add-item.hotel-bookings {
+        background-color: #b3e5fc; /* Pastel blue */
+    }
+
+    .add-item.car-rentals {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.travel-insurance {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.local-transport {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.sightseeing {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.luggage {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.souvenirs {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.meals {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.visa-fees {
+        background-color: #c5cae9; /* Pastel blue */
+    }
+
+    .add-item.guided-tours {
+        background-color: #9fa8da; /* Pastel blue-lavender */
+    }
+
+    .add-item.camping-gear {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.travel-sim {
+        background-color: #b39ddb; /* Pastel purple */
+    }
+
+    .add-item.currency-exchange {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.airport-parking {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+
+    /*Streaming subscription*/
+    .add-item.netflix {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.prime-video {
+        background-color: #b3e5fc; /* Pastel blue */
+    }
+
+    .add-item.disney-plus {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.hulu {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.hbo-max {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.apple-tv {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.paramount-plus {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.peacock {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.youtube-premium {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.discovery-plus {
+        background-color: #c5cae9; /* Pastel blue */
+    }
+
+    .add-item.espn-plus {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.sling-tv {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+
+    .add-item.fubotv {
+        background-color: #9fa8da; /* Pastel blue-lavender */
+    }
+
+    .add-item.crunchyroll {
+        background-color: #ffeb99; /* Pastel yellow */
+    }
+
+    .add-item.funimation {
+        background-color: #b39ddb; /* Pastel purple */
+    }
+
+    .add-item.showtime {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.starz {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.tubi {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.britbox {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.acorn-tv {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+    
+         /*medical*/
+         .add-item.bandages {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.antiseptic-wipes {
+        background-color: #b3e5fc; /* Pastel blue */
+    }
+
+    .add-item.gauze-pads {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.surgical-masks {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.gloves {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.stethoscope {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.syringes {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.thermometer {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.bp-cuff {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.scalpel {
+        background-color: #c5cae9; /* Pastel blue */
+    }
+
+    .add-item.alcohol-swabs {
+        background-color: #b39ddb; /* Pastel purple */
+    }
+
+    .add-item.medical-tape {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.iv-drip {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+
+    .add-item.wheelchair {
+        background-color: #9fa8da; /* Pastel blue-lavender */
+    }
+
+    .add-item.oxygen-cylinder {
+        background-color: #ffeb99; /* Pastel yellow */
+    }
+
+    .add-item.crutches {
+        background-color: #ffccbc; /* Pastel peach */
+    }
+
+    .add-item.defibrillator {
+        background-color: #ffab91; /* Pastel light red */
+    }
+
+    .add-item.sterile-cotton {
+        background-color: #b2dfdb; /* Pastel teal */
+    }
+
+    .add-item.tongue-depressor {
+        background-color: #ffcc80; /* Pastel light orange */
+    }
+
+    .add-item.suture-kit {
+        background-color: #c5e1a5; /* Pastel green */
+    }
+
+    .add-item.nebulizer {
+        background-color: #ce93d8; /* Pastel purple */
+    }
+
+    .add-item.hot-cold-packs {
+        background-color: #ffd54f; /* Pastel yellow */
+    }
+
+    .add-item.bedpans {
+        background-color: #ffecb3; /* Pastel light yellow */
+    }
+
+    .add-item.pulse-oximeter {
+        background-color: #a5d6a7; /* Pastel green */
+    }
+
+    .add-item.specimen-cups {
+        background-color: #ffe082; /* Pastel yellow */
+    }
+    
+    /*Banking*/
+    /* Banking Category Button Styles */
+.add-item.checking-account {
+    background-color: #ffccbc; /* Pastel peach */
+}
+
+.add-item.savings-account {
+    background-color: #b3e5fc; /* Pastel blue */
+}
+
+.add-item.atm-fees {
+    background-color: #c5cae9; /* Pastel lavender */
+}
+
+.add-item.overdraft-fees {
+    background-color: #ffe082; /* Pastel yellow */
+}
+
+.add-item.wire-transfer-fees {
+    background-color: #ffab91; /* Pastel light red */
+}
+
+.add-item.monthly-maintenance {
+    background-color: #a5d6a7; /* Pastel green */
+}
+
+.add-item.account-statement {
+    background-color: #ffecb3; /* Pastel light yellow */
+}
+
+.add-item.currency-exchange {
+    background-color: #d1c4e9; /* Pastel purple */
+}
+
+.add-item.loan-payment {
+    background-color: #f8bbd0; /* Pastel pink */
+}
+
+.add-item.credit-card {
+    background-color: #cfd8dc; /* Pastel grey */
+}
+
+.add-item.foreign-transaction {
+    background-color: #ffe57f; /* Pastel light yellow */
+}
+
+.add-item.safe-deposit {
+    background-color: #b2dfdb; /* Pastel teal */
+}
+
+.add-item.investment-fees {
+    background-color: #e1bee7; /* Pastel lavender */
+}
+
+.add-item.advisory-fees {
+    background-color: #ffcc80; /* Pastel light orange */
+}
+
+.add-item.insurance-premiums {
+    background-color: #b39ddb; /* Pastel purple */
+}
+
+
+        /* Back button styling */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            padding: 10px;
+            border: 2px solid lightgray;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /*own creation*/
+        .add-item.custom-item {
+        background-color: #b3e5fc; /* Initial color for all buttons (light blue) */
+        color: #333;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Custom item container styling */
+    #custom-items-container {
+        margin-top: 10px;
+    }
+
+    /* Change the button color for "Add Custom Item" */
+    #add-custom-item {
+        background-color: #ffb3ba; /* Pastel pink */
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .add-item.custom-item {
+        background-color: #b3e5fc; /* Initial color for all buttons (light blue) */
+        color: #333;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Custom item container styling */
+    #custom-items-container {
+        margin-top: 10px;
+    }
+
+    /* Change the button color for "Add Custom Item" */
+    #add-custom-item {
+        background-color: #ffb3ba; /* Pastel pink */
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+/*container*/
+/* Style for the summary container */
+#summary-container {
+    border: 1px solid #ccc; /* Light border for the container */
+    padding: 10px; /* Padding inside the container */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+}
+
+/* Style for selected count and proceed button container */
+#selected-count-container, #proceed-container {
+    margin-top: 10px; /* Add some space above */
+}
+
+/* Style for the Proceed button */
+#proceed-button {
+    background-color: #90ee90; /* Light green */
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style for the total selected items count */
+#selected-count-container h3 {
+    font-size: 18px;
+    font-weight: bold; /* Make it bold */
+    color: #333; /* Text color */
+}
+/*.*/
+.add-item.custom-item {
+        background-color: #b3e5fc; /* Initial color for all buttons (light blue) */
+        color: #333;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Custom item container styling */
+    #custom-items-container {
+        margin-top: 10px;
+    }
+
+    /* Change the button color for "Add Custom Item" */
+    #add-custom-item {
+        background-color: #ffb3ba; /* Pastel pink */
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Style for the summary container */
+    #summary-container {
+        margin-top: 20px; /* Add some space above */
+        display: flex; /* Use flexbox to align items */
+        justify-content: space-between; /* Space between items */
+        align-items: center; /* Center items vertically */
+    }
+
+    /* Style for the Proceed button */
+    #proceed-button {
+        background-color: #90ee90; /* Light green */
+        color: #333;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Style for the total selected items count */
+    #selected-count-container h3 {
+        font-size: 18px;
+        font-weight: bold; /* Make it bold */
+        color: #333; /* Text color */
+    }
+      /*/*/
+   /* Style for selected count container */
+#selected-count-container {
+    margin-top: 20px; /* Add some space above */
+}
+
+/* Style for the Proceed button container */
+#proceed-container {
+    margin-top: 10px; /* Add space above */
+    text-align: right; /* Align button to the right */
+}
+
+/* Style for the Proceed button */
+#proceed-button {
+    background-color: #90ee90; /* Light green */
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style for the total selected items count */
+#selected-count-container h3 {
+    font-size: 18px;
+    font-weight: bold; /* Make it bold */
+    color: #333; /* Text color */
+}
+
+.back-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <button class="back-button" onclick="back()">⬅Back </button>
+    <h1>Add the Expenses You Want</h1>
+    <hr>
+
+    <!-- Bills Section -->
+    <div class="section">
+        <h2>Bills:</h2>
+        <button class="add-item water"><strong>+ Water</strong> <span class="icon">💧</span></button>
+        <button class="add-item electric"><strong>+ Electric</strong><span class="icon">⚡</span></button>
+        <button class="add-item gas"><strong>+ Gas</strong><span class="icon">🔥</span></button>
+        <button class="add-item rent"><strong>+ Rent</strong><span class="icon">🏠</span></button>
+        <button class="add-item internet"><strong>+ Internet</strong><span class="icon">🌐</span></button>
+        <button class="add-item cable"><strong>+ Cable TV</strong><span class="icon">📺</span></button>
+        <button class="add-item phone"><strong>+ Phone</strong><span class="icon">📱</span></button>
+        <button class="add-item trash"><strong>+ Trash</strong><span class="icon">🗑️</span></button>
+        <button class="add-item health"><strong>+ Health Insurance</strong><span class="icon">🏥</span></button>
+        <button class="add-item car"><strong>+ Car Insurance</strong><span class="icon">🚗</span></button>
+        <button class="add-item life"><strong>+ Life Insurance</strong><span class="icon">❤️</span></button>
+        <button class="add-item water-heater"><strong>+ Heating System</strong><span class="icon">🚿</span></button>
+        <button class="add-item sewer"><strong>+ Plumbing</strong><span class="icon">🚽</span></button>
+        <button class="add-item property"><strong>+ Property Tax</strong><span class="icon">🏡</span></button>
+        <button class="add-item student-loan"><strong>+ Student Loan</strong><span class="icon">🎓</span></button>
+        <button class="add-item maintenance"><strong>+ Maintenance Fees</strong><span class="icon">🔧</span></button>
+        <!-- Add more bills here -->
+    </div>
+
+    <!-- Groceries Section -->
+    <div class="section">
+        <h2>Groceries:</h2>
+        <button class="add-item bread"><strong>+ Bread</strong><span class="icon">🍞</span></button>
+        <button class="add-item milk"><strong>+ Milk</strong><span class="icon">🥛</span></button>
+        <button class="add-item vegetables"><strong>+ Vegetables</strong><span class="icon">🥕</span></button>
+        <button class="add-item fruits"><strong>+ Fruits</strong><span class="icon">🍎</span></button>
+        <button class="add-item snacks"><strong>+ Snacks</strong><span class="icon">🍿</span></button>
+        <button class="add-item meat"><strong>+ Meat</strong><span class="icon">🥩</span></button>
+        <button class="add-item dairy"><strong>+ Dairy</strong><span class="icon">🧀</span></button>
+        <button class="add-item grains"><strong>+ Grains</strong><span class="icon">🌾</span></button>
+        <button class="add-item oils"><strong>+ Oils</strong><span class="icon">🛢️</span></button>
+        <button class="add-item cereals"><strong>+ Cereals</strong><span class="icon">🥣</span></button>
+        <button class="add-item eggs"><strong>+ Eggs</strong><span class="icon">🥚</span></button>
+        <button class="add-item spices"><strong>+ Spices</strong><span class="icon">🌶️</span></button>
+        <button class="add-item frozen"><strong>+ Frozen Food</strong><span class="icon">❄️</span></button>
+        <button class="add-item drinks"><strong>+ Drinks</strong><span class="icon">🥤</span></button>
+        <button class="add-item sweets"><strong>+ Sweets</strong><span class="icon">🍬</span></button>
+
+        <!-- Add more groceries here -->
+    </div>
+
+    <!-- Transportation Section -->
+    <div class="section">
+        <h2>Transportation:</h2>
+        <button class="add-item fuel"><strong>+ Fuel</strong><span class="icon">⛽</span></button>
+        <button class="add-item public-transport"><strong>+ Public Transport</strong><span class="icon">🚌</span></button>
+        <button class="add-item parking"><strong>+ Parking Fees</strong><span class="icon">🅿️</span></button>
+        <button class="add-item tolls"><strong>+ Tolls</strong><span class="icon">🛣️</span></button>
+        <button class="add-item taxi"><strong>+ Taxi/Rideshare</strong><span class="icon">🚖</span></button>
+        <button class="add-item bicycle"><strong>+ Bicycle Maintenance</strong><span class="icon">🚲</span></button>
+        <button class="add-item registration"><strong>+ Vehicle Registration</strong><span class="icon">🚗</span></button>
+        <button class="add-item car-insurance"><strong>+ Car Insurance</strong><span class="icon">🚗</span></button>
+        <button class="add-item car-wash"><strong>+ Car Wash</strong><span class="icon">🧽</span></button>
+        <button class="add-item transit-pass"><strong>+ Public Transit Pass</strong><span class="icon">🎫</span></button>
+        <button class="add-item train-tickets"><strong>+ Train/Bus Tickets</strong><span class="icon">🚆</span></button>
+        <button class="add-item flight-tickets"><strong>+ Flight Tickets</strong><span class="icon">✈️</span></button>
+        <button class="add-item car-maintenance"><strong>+ Car Maintenance</strong><span class="icon">🛠️</span></button>
+        <button class="add-item roadside"><strong>+ Roadside Assistance</strong><span class="icon">🛣️</span></button>
+        <button class="add-item scooter-rentals"><strong>+ Electric Scooter Rentals</strong><span class="icon">🛴</span></button>
+        <!-- Add more transportation here -->
+    </div>
+
+   <!-- Personal Care Section -->
+<div class="section">
+    <h2>Personal Care:</h2>
+    <button class="add-item haircuts"><strong>+ Haircuts and Trims</strong><span class="icon">💇‍♂️</span></button>
+    <button class="add-item shampoo-conditioner"><strong>+ Shampoo and Conditioner</strong><span class="icon">🧴</span></button>
+    <button class="add-item skincare-products"><strong>+ Skincare Products</strong><span class="icon">💆‍♀️</span></button>
+    <button class="add-item manicure-pedicure"><strong>+ Manicure/Pedicure Services</strong><span class="icon">💅</span></button>
+    <button class="add-item hair-styling-products"><strong>+ Hair Styling Products</strong><span class="icon">💇‍♀️</span></button>
+    <button class="add-item body-lotion"><strong>+ Body Lotion</strong><span class="icon">🧴</span></button>
+    <button class="add-item razors-shaving"><strong>+ Razors and Shaving Cream</strong><span class="icon">🪒</span></button>
+    <button class="add-item dental-care"><strong>+ Dental Floss and Mouthwash</strong><span class="icon">🦷</span></button>
+    <button class="add-item spa-treatments"><strong>+ Spa Treatments</strong><span class="icon">💆</span></button>
+    <button class="add-item makeup-products"><strong>+ Makeup Products</strong><span class="icon">💄</span></button>
+    <button class="add-item perfume-cologne"><strong>+ Perfume/Cologne</strong><span class="icon">💐</span></button>
+    <button class="add-item hair-coloring"><strong>+ Hair Coloring Services</strong><span class="icon">🎨</span></button>
+    <button class="add-item sunscreen"><strong>+ Sunscreen Lotion</strong><span class="icon">☀️</span></button>
+    <button class="add-item eyebrow-threading"><strong>+ Eyebrow Threading/Waxing</strong><span class="icon">👁️</span></button>
+    <button class="add-item body-scrubs"><strong>+ Body Scrubs and Exfoliants</strong><span class="icon">🛁</span></button>
+</div>
+
+    <!-- Household Supplies Section -->
+    <div class="section">
+        <h2>Household Supplies:</h2>
+        <button class="add-item laundry"><strong>+ Laundry Detergent</strong><span class="icon">🧺</span></button>
+        <button class="add-item dish-soap"><strong>+ Dish Soap</strong><span class="icon">🍽️</span></button>
+        <button class="add-item paper-towels"><strong>+ Paper Towels</strong><span class="icon">🧻</span></button>
+        <button class="add-item toilet-paper"><strong>+ Toilet Paper</strong><span class="icon">🚽</span></button>
+        <button class="add-item trash-bags"><strong>+ Trash Bags</strong><span class="icon">🗑️</span></button>
+        <button class="add-item cleaning-supplies"><strong>+ Cleaning Supplies</strong><span class="icon">🧹</span></button>
+        <button class="add-item sponges"><strong>+ Sponges</strong><span class="icon">🧽</span></button>
+        <button class="add-item light-bulbs"><strong>+ Light Bulbs</strong><span class="icon">💡</span></button>
+        <button class="add-item foil"><strong>+ Aluminum Foil</strong><span class="icon">🧾</span></button>
+        <button class="add-item plastic-wrap"><strong>+ Plastic Wrap</strong><span class="icon">🧻</span></button>
+        <button class="add-item batteries"><strong>+ Batteries</strong><span class="icon">🔋</span></button>
+        <button class="add-item air-fresheners"><strong>+ Air Fresheners</strong><span class="icon">🧴</span></button>
+        <button class="add-item mops"><strong>+ Mops</strong><span class="icon">🧼</span></button>
+        <button class="add-item vacuum-bags"><strong>+ Vacuum Cleaner Bags</strong><span class="icon">🧹</span></button>
+        <button class="add-item gardening"><strong>+ Gardening Supplies</strong><span class="icon">🌱</span></button>
+    </div>
+
+    <!-- Dining Out Section -->
+    <div class="section">
+        <h2>Dining Out:</h2>
+        <button class="add-item breakfast"><strong>+ Breakfast at a Café</strong><span class="icon">🍳</span></button>
+        <button class="add-item lunch"><strong>+ Lunch at a Restaurant</strong><span class="icon">🍽️</span></button>
+        <button class="add-item dinner"><strong>+ Dinner at a Restaurant</strong><span class="icon">🍝</span></button>
+        <button class="add-item fast-food"><strong>+ Fast Food Meals</strong><span class="icon">🍔</span></button>
+        <button class="add-item coffee-shop"><strong>+ Coffee Shop Purchases</strong><span class="icon">☕</span></button>
+        <button class="add-item takeout"><strong>+ Takeout Orders</strong><span class="icon">🍱</span></button>
+        <button class="add-item catering"><strong>+ Catering for Events</strong><span class="icon">🍖</span></button>
+        <button class="add-item snacks"><strong>+ Snacks from Convenience Stores</strong><span class="icon">🍫</span></button>
+        <button class="add-item food-trucks"><strong>+ Food Trucks</strong><span class="icon">🚚</span></button>
+        <button class="add-item ice-cream"><strong>+ Ice Cream or Dessert Shops</strong><span class="icon">🍨</span></button>
+        <button class="add-item buffet"><strong>+ Buffet Meals</strong><span class="icon">🍲</span></button>
+        <button class="add-item bbq"><strong>+ Barbecue or Grill Nights</strong><span class="icon">🍖</span></button>
+        <button class="add-item dine-in"><strong>+ Dine-in Delivery Services</strong><span             class="icon">🍽️</span></button>
+        <button class="add-item food-tasting"><strong>+ Food Tasting Events</strong><span class="icon">🍤</span></button>
+        <button class="add-item seasonal-food"><strong>+ Seasonal Food Markets</strong><span class="icon">🥕</span></button>
+    </div>
+
+    <!-- Office Supplies Section -->
+    <div class="section">
+    <h2>Office Supplies:</h2>
+    <button class="add-item notebooks"><strong>+ Notebooks</strong><span class="icon">📓</span></button>
+    <button class="add-item pens"><strong>+ Pens and Pencils</strong><span class="icon">✏️</span></button>
+    <button class="add-item highlighters"><strong>+ Highlighters</strong><span class="icon">🖍️</span></button>
+    <button class="add-item paper"><strong>+ Printer Paper</strong><span class="icon">📄</span></button>
+    <button class="add-item folders"><strong>+ Folders and Binders</strong><span class="icon">🗂️</span></button>
+    <button class="add-item sticky-notes"><strong>+ Sticky Notes</strong><span class="icon">📝</span></button>
+    <button class="add-item tape-glue"><strong>+ Tape and Glue</strong><span class="icon">📎</span></button>
+    <button class="add-item stapler"><strong>+ Stapler and Staples</strong><span class="icon">📎</span></button>
+    <button class="add-item index-cards"><strong>+ Index Cards</strong><span class="icon">📇</span></button>
+    <button class="add-item desk-organizers"><strong>+ Desk Organizers</strong><span class="icon">🗄️</span></button>
+    <button class="add-item whiteboard-markers"><strong>+ Whiteboard Markers</strong><span class="icon">🖍️</span></button>
+    <button class="add-item scissors"><strong>+ Scissors</strong><span class="icon">✂️</span></button>
+    <button class="add-item postage-stamps"><strong>+ Postage Stamps</strong><span class="icon">📮</span></button>
+    <button class="add-item file-organizers"><strong>+ File Organizers</strong><span class="icon">📁</span></button>
+    <button class="add-item computer-accessories"><strong>+ Computer Accessories</strong><span class="icon">💻</span></button>
+    </div>
+    
+    <!-- Entertainment Section -->
+<div class="section">
+    <h2>Entertainment:</h2>
+    <button class="add-item movie-tickets"><strong>+ Movie Tickets</strong><span class="icon">🎟️</span></button>
+    <button class="add-item streaming"><strong>+ Concern Tickets</strong><span class="icon">📺</span></button>
+    <button class="add-item video-games"><strong>+ Video Games</strong><span class="icon">🎮</span></button>
+    <button class="add-item board-games"><strong>+ Board Games</strong><span class="icon">🎲</span></button>
+    <button class="add-item concert-tickets"><strong>+ Concert Tickets</strong><span class="icon">🎤</span></button>
+    <button class="add-item event-tickets"><strong>+ Event Tickets</strong><span class="icon">🏟️</span></button>
+    <button class="add-item ebooks"><strong>+ eBook Purchases</strong><span class="icon">📚</span></button>
+    <button class="add-item music-downloads"><strong>+ Music Downloads</strong><span class="icon">🎵</span></button>
+    <button class="add-item magazines"><strong>+ Magazine Subscriptions</strong><span class="icon">📰</span></button>
+    <button class="add-item outdoor-activities"><strong>+ Outdoor Activities</strong><span class="icon">⛰️</span></button>
+    <button class="add-item amusement-park"><strong>+ Amusement Park Tickets</strong><span class="icon">🎢</span></button>
+    <button class="add-item escape-room"><strong>+ Escape Room</strong><span class="icon">🔒</span></button>
+    <button class="add-item karaoke"><strong>+ Karaoke Nights</strong><span class="icon">🎤</span></button>
+    <button class="add-item classes"><strong>+ Classes</strong><span class="icon">🎨</span></button>
+    <button class="add-item hobby-supplies"><strong>+ Hobby Supplies</strong><span class="icon">✂️</span></button>
+</div>
+
+<!-- Shopping Section -->
+<div class="section">
+    <h2>Shopping:</h2>
+    <button class="add-item clothing"><strong>+ Clothing</strong><span class="icon">👗</span></button>
+    <button class="add-item shoes"><strong>+ Shoes</strong><span class="icon">👟</span></button>
+    <button class="add-item accessories"><strong>+ Accessories</strong><span class="icon">💼</span></button>
+    <button class="add-item electronics"><strong>+ Electronics</strong><span class="icon">📱</span></button>
+    <button class="add-item appliances"><strong>+ Home Appliances</strong><span class="icon">🍳</span></button>
+    <button class="add-item furniture"><strong>+ Furniture</strong><span class="icon">🛋️</span></button>
+    <button class="add-item books"><strong>+ Books</strong><span class="icon">📚</span></button>
+    <button class="add-item gifts"><strong>+ Gifts</strong><span class="icon">🎁</span></button>
+    <button class="add-item baby-products"><strong>+ Baby Products</strong><span class="icon">🍼</span></button>
+    <button class="add-item kitchen-supplies"><strong>+ Kitchen Supplies</strong><span class="icon">🍽️</span></button>
+    <button class="add-item beauty-products"><strong>+ Beauty Products</strong><span class="icon">💄</span></button>
+    <button class="add-item fitness-gear"><strong>+ Fitness Gear</strong><span class="icon">🏋️</span></button>
+    <button class="add-item gadgets"><strong>+ Gadgets</strong><span class="icon">🔌</span></button>
+    <button class="add-item seasonal-items"><strong>+ Seasonal Items</strong><span class="icon">🧤</span></button>
+    <button class="add-item art-supplies"><strong>+ Art Supplies</strong><span class="icon">🎨</span></button>
+</div>
+
+<!-- Travel Section -->
+<div class="section">
+    <h2>Travel:</h2>
+    <button class="add-item flight-tickets"><strong>+ Flight Tickets</strong><span class="icon">✈️</span></button>
+    <button class="add-item hotel-bookings"><strong>+ Hotel Bookings</strong><span class="icon">🏨</span></button>
+    <button class="add-item car-rentals"><strong>+ Car Rentals</strong><span class="icon">🚗</span></button>
+    <button class="add-item travel-insurance"><strong>+ Travel Insurance</strong><span class="icon">🛡️</span></button>
+    <button class="add-item local-transport"><strong>+ Local Transport</strong><span class="icon">🚌</span></button>
+    <button class="add-item sightseeing"><strong>+ Sightseeing Tours</strong><span class="icon">🗺️</span></button>
+    <button class="add-item luggage"><strong>+ Travel Bags</strong><span class="icon">🎒</span></button>
+    <button class="add-item souvenirs"><strong>+ Souvenirs</strong><span class="icon">🎁</span></button>
+    <button class="add-item meals"><strong>+ Meals While Traveling</strong><span class="icon">🍽️</span></button>
+    <button class="add-item visa-fees"><strong>+ Visa Fees</strong><span class="icon">🛂</span></button>
+    <button class="add-item guided-tours"><strong>+ Guided Tours</strong><span class="icon">👨‍🏫</span></button>
+    <button class="add-item camping-gear"><strong>+ Camping Gear</strong><span class="icon">🏕️</span></button>
+    <button class="add-item travel-sim"><strong>+ Travel SIM Cards</strong><span class="icon">📱</span></button>
+    <button class="add-item currency-exchange"><strong>+ Currency Exchange Fees</strong><span class="icon">💱</span></button>
+    <button class="add-item airport-parking"><strong>+ Airport Parking Fees</strong><span class="icon">🅿️</span></button>
+</div>
+
+<!-- Streaming Services Section -->
+<div class="section">
+    <h2>Streaming Services:</h2>
+    <button class="add-item netflix"><strong>+ Netflix</strong><span class="icon">🎬</span></button>
+    <button class="add-item prime-video"><strong>+ Amazon Prime Video</strong><span class="icon">📺</span></button>
+    <button class="add-item disney-plus"><strong>+ Disney+</strong><span class="icon">🏰</span></button>
+    <button class="add-item hulu"><strong>+ Hulu</strong><span class="icon">🎥</span></button>
+    <button class="add-item hbo-max"><strong>+ HBO Max</strong><span class="icon">📽️</span></button>
+    <button class="add-item apple-tv"><strong>+ Apple TV+</strong><span class="icon">🍏</span></button>
+    <button class="add-item paramount-plus"><strong>+ Paramount+</strong><span class="icon">🎞️</span></button>
+    <button class="add-item peacock"><strong>+ Peacock</strong><span class="icon">🦚</span></button>
+    <button class="add-item youtube-premium"><strong>+ YouTube Premium</strong><span class="icon">📹</span></button>
+    <button class="add-item discovery-plus"><strong>+ Discovery+</strong><span class="icon">🌍</span></button>
+    <button class="add-item espn-plus"><strong>+ ESPN+</strong><span class="icon">🏅</span></button>
+    <button class="add-item sling-tv"><strong>+ Sling TV</strong><span class="icon">📡</span></button>
+    <button class="add-item fubotv"><strong>+ FuboTV</strong><span class="icon">⚽</span></button>
+    <button class="add-item crunchyroll"><strong>+ Crunchyroll</strong><span class="icon">🍥</span></button>
+    <button class="add-item funimation"><strong>+ Funimation</strong><span class="icon">🎙️</span></button>
+    <button class="add-item showtime"><strong>+ Showtime</strong><span class="icon">🎭</span></button>
+    <button class="add-item starz"><strong>+ Starz</strong><span class="icon">⭐</span></button>
+    <button class="add-item tubi"><strong>+ Tubi</strong><span class="icon">📼</span></button>
+    <button class="add-item britbox"><strong>+ BritBox</strong><span class="icon">🇬🇧</span></button>
+    <button class="add-item acorn-tv"><strong>+ Acorn TV</strong><span class="icon">🌰</span></button>
+</div>
+
+    <!-- Medical Supplies Section -->
+    <div class="section">
+        <h2>Medical Supplies:</h2>
+        <button class="add-item bandages"><strong>+ Bandages</strong><span class="icon">🩹</span></button>
+        <button class="add-item antiseptic-wipes"><strong>+ Antiseptic Wipes</strong><span class="icon">🧴</span></button>
+        <button class="add-item gauze-pads"><strong>+ Gauze Pads</strong><span class="icon">🩺</span></button>
+        <button class="add-item surgical-masks"><strong>+ Surgical Masks</strong><span class="icon">😷</span></button>
+        <button class="add-item gloves"><strong>+ Disposable Gloves</strong><span class="icon">🧤</span></button>
+        <button class="add-item stethoscope"><strong>+ Stethoscope</strong><span class="icon">🩺</span></button>
+        <button class="add-item syringes"><strong>+ Syringes</strong><span class="icon">💉</span></button>
+        <button class="add-item thermometer"><strong>+ Thermometer</strong><span class="icon">🌡️</span></button>
+        <button class="add-item bp-cuff"><strong>+ Blood Pressure Cuff</strong><span class="icon">🩺</span></button>
+        <button class="add-item scalpel"><strong>+ Scalpel</strong><span class="icon">🔪</span></button>
+        <button class="add-item alcohol-swabs"><strong>+ Alcohol Swabs</strong><span class="icon">🧼</span></button>
+        <button class="add-item medical-tape"><strong>+ Medical Tape</strong><span class="icon">📎</span></button>
+        <button class="add-item iv-drip"><strong>+ IV Drip Set</strong><span class="icon">💧</span></button>
+        <button class="add-item wheelchair"><strong>+ Wheelchair</strong><span class="icon">🦽</span></button>
+        <button class="add-item oxygen-cylinder"><strong>+ Oxygen Cylinder</strong><span class="icon">🫁</span></button>
+        <button class="add-item crutches"><strong>+ Crutches</strong><span class="icon">🦯</span></button>
+        <button class="add-item defibrillator"><strong>+ Defibrillator (AED)</strong><span class="icon">⚡</span></button>
+        <button class="add-item sterile-cotton"><strong>+ Sterile Cotton Balls</strong><span class="icon">🧴</span></button>
+        <button class="add-item tongue-depressor"><strong>+ Tongue Depressor</strong><span class="icon">👅</span></button>
+        <button class="add-item suture-kit"><strong>+ Suture Kit</strong><span class="icon">🪡</span></button>
+        <button class="add-item nebulizer"><strong>+ Nebulizer</strong><span class="icon">💨</span></button>
+        <button class="add-item hot-cold-packs"><strong>+ Hot/Cold Packs</strong><span class="icon">❄️</span></button>
+        <button class="add-item bedpans"><strong>+ Bedpans</strong><span class="icon">🛏️</span></button>
+        <button class="add-item pulse-oximeter"><strong>+ Pulse Oximeter</strong><span class="icon">💓</span></button>
+        <button class="add-item specimen-cups"><strong>+ Specimen Cups</strong><span class="icon">🧪</span></button>
+    </div>
+
+    <!-- Banking Category Section -->
+<div class="section">
+    <h2>Banking:</h2>
+    <div id="banking-container">
+        <button class="add-item checking-account"><strong>+ Checking Account Fees</strong> 💵</button>
+        <button class="add-item savings-account"><strong>+ Savings Account Fees</strong> 🏦</button>
+        <button class="add-item atm-fees"><strong>+ ATM Fees</strong> 🏧</button>
+        <button class="add-item overdraft-fees"><strong>+ Overdraft Fees</strong> 🚫</button>
+        <button class="add-item wire-transfer-fees"><strong>+ Wire Transfer Fees</strong> 📡</button>
+        <button class="add-item monthly-maintenance"><strong>+ Monthly Maintenance Fees</strong> 📅</button>
+        <button class="add-item account-statement"><strong>+ Account Statement Fees</strong> 📑</button>
+        <button class="add-item currency-exchange"><strong>+ Currency Exchange Fees</strong> 🌍</button>
+        <button class="add-item loan-payment"><strong>+ Loan Payment Fees</strong> 💳</button>
+        <button class="add-item credit-card"><strong>+ Credit Card Annual Fees</strong> 💳</button>
+        <button class="add-item foreign-transaction"><strong>+ Foreign Transaction Fees</strong> 🌏</button>
+        <button class="add-item safe-deposit"><strong>+ Safe Deposit Box Fees</strong> 🔒</button>
+        <button class="add-item investment-fees"><strong>+ Investment Account Fees</strong> 📈</button>
+        <button class="add-item advisory-fees"><strong>+ Advisory Fees</strong> 💼</button>
+        <button class="add-item insurance-premiums"><strong>+ Insurance Premiums</strong> 🛡️</button>
+    </div>
+</div>
+
+
+
+
+<!-- Own Creation Section -->
+<div class="section">
+    <h2>Own Creation:</h2>
+    <div id="custom-items-container">
+        <!-- Custom items added by the user will appear here -->
+    </div>
+    <button id="add-custom-item" class="add-item"><strong>+ Add Custom Item</strong><span class="icon">✏️</span></button>
+    
+    <!-- Container for displaying the total number of selected items -->
+    <div id="selected-count-container">
+        <h3>Total Selected Items: <span id="total-selected">0</span></h3>
+    </div>
+    
+    <!-- Separate container for Proceed button -->
+    <div id="proceed-container">
+        <button id="proceed-button" class="add-item"><strong>Proceed</strong></button>
+    </div>
+</div>
+
+
+
+
+<!-- Script for adding custom items and handling selection -->
+<script>
+    let totalSelectedCount = 0; // Variable to keep track of total selected items
+    const selectedItems = []; // Store selected items with their categories
+
+    // Function to handle button click events for selection
+    function handleButtonClick(button, category = "Custom") {
+        const originalColor = getComputedStyle(button).backgroundColor; // Store the original color
+
+        button.addEventListener('click', function () {
+            const itemName = this.textContent.trim();
+
+            // Check if the button is selected
+            if (!this.classList.contains('selected')) {
+                this.classList.add('selected');
+                this.style.backgroundColor = '#90ee90'; // Change to green on selection
+                totalSelectedCount++; // Increment selected count
+                selectedItems.push({ name: itemName, category: category }); // Store item with category
+            } else {
+                this.classList.remove('selected');
+                this.style.backgroundColor = originalColor; // Revert to original color
+                totalSelectedCount--; // Decrement selected count
+                selectedItems = selectedItems.filter(item => item.name !== itemName); // Remove item
+            }
+
+            // Update the total selected count display
+            document.getElementById('total-selected').textContent = totalSelectedCount;
+        });
+    }
+
+    // Add event listener for the "Add Custom Item" button
+    document.getElementById('add-custom-item').addEventListener('click', function () {
+        const itemText = prompt("Enter your custom item:");
+        
+        if (itemText && itemText.trim() !== '') {
+            const newItem = document.createElement('button');
+            newItem.classList.add('add-item', 'custom-item');
+            newItem.innerHTML = `<strong>${itemText}</strong><span class="icon">✅</span>`;
+            document.getElementById('custom-items-container').appendChild(newItem);
+
+            // Attach click event for the new button with "Custom" as the category
+            handleButtonClick(newItem, 'Custom');
+        }
+    });
+
+    // Attach click events for existing buttons and pass category
+    const buttons = document.querySelectorAll('.add-item');
+    buttons.forEach(button => {
+        const category = button.closest('.section').querySelector('h2').textContent.trim(); // Get category from section header
+        handleButtonClick(button, category); // Pass the button and its category
+    });
+</script>
+
+<!-- Script for handling the Proceed button -->
+<script>
+    document.getElementById('proceed-button').addEventListener('click', function () {
+        if (totalSelectedCount >= 5) {
+            // Store selected items in localStorage
+            localStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+
+            // Redirect to the amounts entry page
+            window.location.href = 'amounts.html';
+        } else {
+            alert("Please select at least 5 items to proceed.");
+        }
+    });
+
+function back()
+{
+    window.location.href="../home/index.html";
+}
+
+</script>
+
+    
+</body>
+</html>

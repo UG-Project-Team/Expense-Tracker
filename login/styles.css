@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+body{
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    padding: 60px;
+    overflow-y: auto;  /* Make the whole page scrollable */
+}
+
+.container{
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .35);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center; /* Ensure it's centered vertically */
+   
+}
+
+.form-container {
+    width: 85%;
+    
+}
+
+.group.family {
+    margin-top: 60px;
+    width: 40%;
+}
+
+.group.friends {
+    margin-left: 15%;
+    width: 55%;
+}
+
+.group.business {
+    margin-left: 5%;
+    width: 35%;
+}
+
+.group{
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.group h3{
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.group p{
+    font-size: 14px;
+    margin-bottom:5px;
+}
+
+.group button{
+    background-color: #512da8;
+    color: white;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.arrow::before {
+    content: "\2193";
+    font-size: 24px;
+    display: block;
+    text-align: center;
+}
+
+.group button:hover{
+    background-color: #3700b3;
+}
+
+.toggle-container{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 60%;
+    overflow: hidden;
+    transition: all .6s ease-in-out;
+    border-radius: 0px 0 0px  200px;
+    z-index: 1000;
+}
+
+.toggle-right{
+    background-color: #512da8;
+    height: 100%;
+    background: linear-gradient(to right, #5c6bc0, #512da8);
+    color: #f2eeee;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translate(0);
+    transition: all .6s ease-in-out;
+}
+
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all .6s ease-in-out;
+}
+
+.toggle-panel h1{
+    font-size: 24px;
+    margin-bottom: 20px;
+    color:white;
+}
+
+.toggle-panel p{
+    font-size: 16px;
+    line-height: 1.5;
+    color:white;
+}
+
+.bottom-right-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.bottom-right-button button {
+    background-color: #512da8; /* Your desired pastel neon light color */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.bottom-right-button button:hover {
+    background-color: #4841cd; /* Darker shade for hover effect */
+}
+
+
+
+#groupsSection {
+    display: flex;
+    flex-wrap: wrap; /* Wraps to the next line if there's not enough space */
+    gap: 90px; /* Adds spacing between each group section */
+    justify-content: flex-start; 
+    
+    margin-top: 20px;
+    padding: 20px;
+    
+}
+
+.group-area {
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 20px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+}
+
+.members-list {
+    display: grid;
+    grid-template-columns: repeat(4, 4fr); /* Creates exactly 5 equal-width columns */
+    gap: 20px; /* Space between the buttons */
+    padding: 10px;
+}
+
+.member-button {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.member p {
+    font-size: 14px;
+}
+
+.remove-button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    background-color: #d32f2f;
+}
+
+/* Floating Add Button */
+.floating-add-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 30px;  /* Modern button shape */
+    border-radius: 25px;  /* Rounder button */
+    font-size: 16px;      /* Larger font for modern look */
+    cursor: pointer;
+    display: block;
+    margin-top: 15px;
+}
+
+.floating-add-button:hover {
+    background-color: #2980b9;
+}
+
+/* Floating Form */
+.floating-form {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.floating-form input {
+    padding: 5px;  /* Reduced padding for compactness */
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.floating-submit-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    align-self: flex-start;
+}
+
+.floating-submit-btn:hover {
+    background-color: #388e3c;
+}
+
+.styled-button {
+    background-color: #5d31a5; /* Modify this to apply different pastel colors */
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display:flex;
+    flex-direction: column;
+}
+
+.styled-button:hover {
+    background-color: #9500ff; /* Darker shade on hover */
+}
+
+/* Target Section Styling */
+.target-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f0f4f8; /* Light background for contrast */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.target-section h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.target-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.target-section label {
+    font-size: 1em;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.target-section input[type="number"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #333;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
+}
+
+.target-section input[type="number"]:focus {
+    outline: none;
+    border-color: #4caf50; /* Highlight color for input focus */
+}
+
+.target-section button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.target-section button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+/* Next Step Button Styling */
+#nextStepButton {
+    padding: 10px 20px;
+    background-color: #cccccc; /* Gray background when disabled */
+    color: #666666; /* Dark gray text when disabled */
+    border: none;
+    border-radius: 30px;
+    font-size: 1em;
+    cursor: not-allowed; /* Not-allowed cursor when disabled */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#nextStepButton:enabled {
+    background-color: #5d31a5; /* Green background when enabled */
+    color: #ffffff; /* White text when enabled */
+    cursor: pointer; /* Pointer cursor when enabled */
+}
+
+#nextStepButton:enabled:hover {
+    background-color: #5d31a5; /* Darker green on hover when enabled */
+}
+
+

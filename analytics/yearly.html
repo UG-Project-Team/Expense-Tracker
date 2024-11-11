@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yearly Analysis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        body {
+            background-color: #c9d6ff;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden; /* Prevents scrolling */
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .35);
+            text-align: center;
+        }
+
+        .title {
+            font-size: 2em;
+            color: #6a0dad;
+            margin-bottom: 20px;
+        }
+
+        .goals {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .goal {
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .goal h3 {
+            color: #6a0dad;
+            margin-bottom: 10px;
+        }
+
+        .goal-box {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.2em;
+            background-color: #f7f7f7;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .analysis-chart {
+            width: 100%;
+            max-width: 200px;
+            height: 100px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .spendings, .categories {
+            flex: 1;
+            min-width: 250px;
+            background-color: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .spendings h3, .categories h3 {
+            color: #6a0dad;
+            margin-bottom: 10px;
+        }
+
+        .spendings ul, .categories ol {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chart {
+            color: #6a0dad;
+        }
+
+        .chart-container {
+            width: 150px; /* Reduced width */
+            height: 150px; /* Reduced height */
+            margin: 0 auto;
+        }
+
+        .note {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            color: #888;
+            text-align: center;
+            background-color: #f7f7f7;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        /* New chart-note container for side-by-side layout */
+        .chart-note-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .chart, .note {
+            flex: 1;
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .goals {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .goal, .spendings, .categories, .chart, .note {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .chart-note-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .chart-container {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Yearly Analysis</h1>
+
+        <div class="goals">
+            <div class="goal">
+                <h3>Monthly Goal</h3>
+                <div class="goal-box">240,000</div>
+            </div>
+            <div class="goal">
+                <h3>Yearly Goal</h3>
+                <div class="goal-box">12,00,000</div>
+            </div>
+            <div class="goal">
+                <h3>Analysis</h3>
+                <canvas id="heartbeatChart" class="analysis-chart"></canvas>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="spendings">
+                <h3>Month wise spendings</h3>
+                <ul>
+                    <li>Month 1 - 2,40,000 = Managed</li>
+                    <li>Month 2 - 2,40,000 = Managed</li>
+                    <li>Month 3 - 3,00,000 = Overspend</li>
+                    <li>Month 4 - 1,80,000 = Managed</li>
+                    <li>Month 5 - 2,40,000 = Managed</li>
+                </ul>
+            </div>
+            <div class="categories">
+                <h3>Most spend Category</h3>
+                <ol>
+                    <li>Bills</li>
+                    <li>Grocery</li>
+                    <li>Transportation</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="chart-note-container">
+            <div class="chart">
+                <h3>Month-wise Spending Chart</h3>
+                <div class="chart-container">
+                    <canvas id="spendingChart"></canvas>
+                </div>
+            </div>
+
+            <div class="note">
+                <p>Note: About the analysis, you spend correctly every week & month and saved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('spendingChart').getContext('2d');
+        const spendingChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                
+                datasets: [{
+                    label: 'Spending',
+                    data: [240000, 240000, 300000, 180000, 240000],
+                    backgroundColor: ['#FFB3BA', '#FFDFBA', '#FFFFBA', '#BAFFC9', '#BAE1FF'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += new Intl.NumberFormat().format(context.raw);
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Heartbeat Chart
+        const heartbeatCtx = document.getElementById('heartbeatChart').getContext('2d');
+        const heartbeatChart = new Chart(heartbeatCtx, {
+            type: 'line',
+            data: {
+                labels: Array(20).fill(''), // Empty labels for heartbeat look
+                datasets: [{
+                    label: 'Analysis',
+                    data: [0, 20, -10, 30, -15, 40, -10, 20, 0, 20, -10, 30, -15, 40, -10, 20, 0],
+                    borderColor: '#6a0dad',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.4 // Creates the smooth curve
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false // Hides the legend
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false // Hides X-axis
+                    },
+                    y: {
+                        display: false // Hides Y-axis
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

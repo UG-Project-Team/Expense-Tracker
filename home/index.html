@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>EXPENSE TRACKER</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet"> 
+        
+        <style>
+ /* Popup Container */
+.popup {
+    display: none;  /* Hidden by default */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
+/* Show the pop-up when it has the "active" class */
+.popup.active {
+    display: block;
+}
+
+/* Business Container */
+#business-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#business-expenses-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#business-expenses-list li {
+    margin-bottom: 10px;
+}
+
+/* Styling for Popup Content */
+.popup-content h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.popup-content p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #555;
+}
+
+.popup-content button {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.popup-content .cancel-btn {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+
+        </style>
+
+    </head>
+    
+    <body id="top">
+
+        <main>
+
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html">
+                        <i class="bi-back"></i>
+                        <span>EXPENSE TRACKER</span>
+                    </a>
+
+                    <div class="d-lg-none ms-auto me-4">
+                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_1">Home</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_2">Browse</a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_3">How it works</a>
+                            </li>
+                        </ul>
+
+                        <div class="d-none d-lg-block">
+                            <a href="../profile/profile.html" class="navbar-icon bi-person smoothscroll"></a>
+                           
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            
+
+            <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-8 col-12 mx-auto">
+                            <h1 class="text-white text-center">Manage . Expense . Easily</h1>
+
+                            <h6 class="text-center">platform for money management around your world</h6>
+
+                            </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="featured-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                            <div class="custom-block bg-white shadow-lg">
+                                <a href="../add_expenses/index.html">
+                                    <div class="d-flex">
+                                        <div>
+                                            <h5 class="mb-2">ADD EXPENSE</h5>
+
+                                            <p class="mb-0">"When it comes to managing your finances, the Add Expense feature is your go-to solution for effortlessly tracking your spending.</p>
+                                        </div>
+
+                                         </div>
+
+                                    <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="custom-block-image img-fluid" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <div class="custom-block custom-block-overlay">
+                                <div class="d-flex flex-column h-100">
+                                    <img src="images/businesswoman-using-tablet-analysis.jpg" class="custom-block-image img-fluid" alt="">
+
+                                    <div class="custom-block-overlay-text d-flex">
+                                        <div>
+                                            <h5 class="text-white mb-2">Finance</h5>
+
+                                            <p class="text-white">For View Past Month Finance Details: "Easily access a detailed overview of your past month’s financial data. Fully customizable for your reporting needs."</p>
+
+                                              </div>
+
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="explore-section section-padding" id="section_2">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12 text-center">
+                            <h2 class="mb-4">Browse Features</h1>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="design-tab" data-bs-toggle="tab" data-bs-target="#design-tab-pane" type="button" role="tab" aria-controls="design-tab-pane" aria-selected="true">Draft</button>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing-tab-pane" type="button" role="tab" aria-controls="marketing-tab-pane" aria-selected="false">Report</button>
+                            </li>
+
+                          
+
+                          
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel" aria-labelledby="design-tab" tabindex="0">
+                                    <div class="row">
+                                        
+
+                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
+                                            <div class="custom-block bg-white shadow-lg" onclick="draft()">
+                                                
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <h5 class="mb-2">Draft</h5>
+
+                                                                <p class="mb-0">Analyse your Expenses</p>
+                                                        </div>
+
+                                                          </div>
+
+                                                    <img src="images/topics/undraw_Redesign_feedback_re_jvm0.png" class="custom-block-image img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
+                                            <div class="custom-block bg-white shadow-lg" onclick="submit()">
+                                                
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <h5 class="mb-2">Amounts Spend</h5>
+
+                                                            <p class="mb-0">Analyse your spended amounts</p><br>
+                                                           
+                                                            
+                                                    </div>
+
+                                                      </div>
+
+                                                <img src="images/topics/undraw_Redesign_feedback_re_jvm0.png" class="custom-block-image img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="marketing-tab-pane" role="tabpanel" aria-labelledby="marketing-tab" tabindex="0">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                                <div class="custom-block bg-white shadow-lg" onclick="week()">
+                                                    
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <h5 class="mb-2">Weekly</h5>
+
+                                                                <p class="mb-0">Your weekly expenses.</p>
+                                                            </div>
+
+                                                            </div>
+
+                                                            <img src="images/topics/undraw_Group_video_re_btu7.png" class="custom-block-image img-fluid" alt="">
+                                                        </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                                <div class="custom-block bg-white shadow-lg" onclick="month()">
+                                                   
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <h5 class="mb-2">Monthly</h5>
+
+                                                                <p class="mb-0">Your monthly expenses.</p>
+                                                            </div>
+
+                                                             </div>
+
+                                                        <img src="images/topics/undraw_Group_video_re_btu7.png" class="custom-block-image img-fluid" alt="">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                                <div class="custom-block bg-white shadow-lg" onclick="year()">
+                                                    
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <h5 class="mb-2">Yearly</h5>
+
+                                                                <p class="mb-0">Your yearly expenses.</p>
+                                                            </div>
+
+                                                              </div>
+
+                                                              <img src="images/topics/undraw_Group_video_re_btu7.png" class="custom-block-image img-fluid" alt="">
+                                                            </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                  </div>
+                                        
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="timeline-section section-padding" id="section_3">
+                <div class="section-overlay"></div>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-12 text-center">
+                            <h2 class="text-white mb-4">How does Budgeting work?</h1>
+                        </div>
+
+                        <div class="col-lg-10 col-12 mx-auto">
+                            <div class="timeline-container">
+                                <ul class="vertical-scrollable-timeline" id="vertical-scrollable-timeline">
+                                    <div class="list-progress">
+                                        <div class="inner"></div>
+                                    </div>
+
+                                    <li>
+                                        <h4 class="text-white mb-3">Establish a Clear Budget</h4>
+
+                                        <p class="text-white">Start by setting a clear and realistic budget based on your income and necessary expenses. Categorize your spending—such as fixed costs (rent, utilities) and variable costs (groceries, entertainment)—to gain a better understanding of where your money goes. This will help you identify areas where you can cut back.</p>
+
+                                        <div class="icon-holder">
+                                          <i class="bi-search"></i>
+                                        </div>
+                                    </li>
+                                    
+                                    <li>
+                                        <h4 class="text-white mb-3">Track Your  &amp; Expenses Regularly</h4>
+
+                                        <p class="text-white">Consistently monitor your spending by recording every expense, no matter how small. This practice not only helps you stay accountable but also highlights spending patterns. Use budgeting tools or apps that allow you to visualize your financial data easily, making it simpler to see where adjustments are needed.</p>
+
+                                        <div class="icon-holder">
+                                          <i class="bi-bookmark"></i>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <h4 class="text-white mb-3">Adjust &amp; Optimize </h4>
+
+                                        <p class="text-white">Review your budget monthly to assess your progress. Are you overspending in certain categories? Adjust your budget as needed to reflect changing priorities or financial goals. Look for opportunities to save, whether it's by cutting unnecessary subscriptions or finding more affordable alternatives for regular purchases.</p>
+
+                                        <div class="icon-holder">
+                                          <i class="bi-book"></i>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-center mt-5">
+                            <p class="text-white">
+                                Want to learn more?
+                                <a href="#" class="btn custom-btn custom-border-btn ms-3">Check out Youtube</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <div id="expense-popup" class="popup">
+                <div class="popup-content">
+                    <h3 id="popup-title">Expense Details</h3>
+                    <p id="popup-message"></p>
+                    <button type="button" class="cancel-btn" onclick="closePopup()">Close</button>
+                </div>
+            </div>
+        </main>
+
+
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery.sticky.js"></script>
+        <script src="js/click-scroll.js"></script>
+        <script src="js/custom.js"></script>
+
+        <script>
+          // Check for new request flag
+window.addEventListener('DOMContentLoaded', function () {
+    const newRequest = localStorage.getItem('newRequest');
+
+    if (newRequest === 'true') {
+        // Display the success message
+        const messageBox = document.createElement('div');
+        messageBox.textContent = 'There is a new request!';
+        messageBox.style.position = 'fixed';
+        messageBox.style.bottom = '20px';
+        messageBox.style.right = '20px';
+        messageBox.style.backgroundColor = '#4caf50';
+        messageBox.style.color = '#fff';
+        messageBox.style.padding = '10px 20px';
+        messageBox.style.borderRadius = '5px';
+        messageBox.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+        messageBox.style.fontSize = '1rem';
+        document.body.appendChild(messageBox);
+
+        // Automatically remove the message after 5 seconds
+        setTimeout(() => {
+            messageBox.remove();
+            // Clear the new request flag
+            localStorage.removeItem('newRequest');
+        }, 5000);
+    }
+});
+function submit() {
+        window.location.href = '../request/request.html';
+    }
+
+    function draft() {
+        window.location.href = '../add_expenses/edit_entries.html';
+    }
+
+    function week() {
+        window.location.href = '../add_expenses/weekreport.html';
+    }
+
+    function month() {
+        window.location.href = '../add_expenses/month.html';
+    }
+
+    function year() {
+        window.location.href = '../add_expenses/year.html';
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+    const familyContainer = document.querySelector('#family-container');
+    let currentExpense = null;  // Store the current expense to be accepted
+    let familyExpenseItems = []; // Array to hold family expense items
+
+    // Event listener for clicking on the family container
+    familyContainer.addEventListener('click', function () {
+        // Fetch expenses from the backend
+        fetch('http://localhost:4000/get-expenses') // Make sure your backend URL is correct
+            .then(response => response.json())
+            .then(data => {
+                familyExpenseItems = data; // Store fetched data in familyExpenseItems
+                displayFamilyExpenses(familyExpenseItems); // Display expenses
+            })
+            .catch(error => {
+                console.error('Error fetching expenses:', error);
+                alert('There was an error fetching the expenses.');
+            });
+    });
+
+    // Function to display expenses in the family container
+    function displayFamilyExpenses(expenses) {
+        const familyExpensesList = document.getElementById('family-expenses-list');
+        familyExpensesList.innerHTML = ''; // Clear previous entries
+
+        // Loop through each expense and create a list item
+        expenses.forEach(expense => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${expense.name}: $${expense.amount} - ${expense.description}`;
+            familyExpensesList.appendChild(listItem);
+
+            // Add click event to each list item to show details in the popup
+            listItem.addEventListener('click', function () {
+                openPopup(expense); // Open the popup and show the expense details
+            });
+        });
+
+        // Optionally show a message if there are no expenses
+        if (expenses.length === 0) {
+            familyExpensesList.innerHTML = '<li>No expenses found.</li>';
+        }
+    }
+
+    // Function to open the popup with expense details
+    function openPopup(expense) {
+        currentExpense = expense;  // Store the current expense
+
+        const popup = document.getElementById('expense-popup');
+        const popupTitle = document.getElementById('popup-title');
+        const popupMessage = document.getElementById('popup-message');
+
+        // Set the content of the popup
+        popupTitle.textContent = `${expense.name} Expense Details`;
+        popupMessage.textContent = `Amount: $${expense.amount}\n\tDescription: ${expense.description}`;
+
+        // Show the popup
+        popup.classList.add('active');
+    }
+
+    // Function to close the popup
+    function closePopup() {
+        const popup = document.getElementById('expense-popup');
+        popup.classList.remove('active'); // Hide the popup
+    }
+
+    // Function to accept the expense and add it to the business container
+    document.getElementById('accept-expense-btn').addEventListener('click', function () {
+        if (currentExpense) {
+            // Get the business expenses list
+            const businessExpensesList = document.getElementById('business-expenses-list');
+            
+            // Add the expense to the business section
+            const listItem = document.createElement('li');
+            listItem.textContent = `${currentExpense.name}: $${currentExpense.amount} - ${currentExpense.description}`;
+            businessExpensesList.appendChild(listItem);
+
+            // Store the accepted expense in localStorage (optional)
+            let acceptedExpenses = JSON.parse(localStorage.getItem('acceptedExpenses')) || [];
+            acceptedExpenses.push(currentExpense);
+            localStorage.setItem('acceptedExpenses', JSON.stringify(acceptedExpenses));
+
+            // Remove the accepted expense from the family list
+            familyExpenseItems = familyExpenseItems.filter(expense => expense !== currentExpense);
+
+            // Display updated family expenses list
+            displayFamilyExpenses(familyExpenseItems);
+
+            // Close the popup after accepting the expense
+            closePopup();
+        }
+    });
+
+    // Close button functionality
+    document.getElementById('close-popup-btn').addEventListener('click', closePopup);
+});
+
+</script>
+
+</body>
+</html>

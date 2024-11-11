@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Reports</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #e9ecef, #d3d9ff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .back-button {
+            background-color: #4a0072;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4a0072;
+            margin-bottom: 15px;
+        }
+
+        #months-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .month-card {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 150px;
+            height: 100px;
+        }
+
+        .month-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .details-container {
+            display: none;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+
+        .charts {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .chart-container {
+            flex: 1;
+            max-width: 300px;
+            padding: 10px;
+            background-color: #f1f3f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-categories {
+            margin: 15px 0;
+            text-align: left;
+            font-size: 0.9rem;
+            padding: 10px;
+            background-color: #f1f3f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th, table td {
+            border: 1px solid #dee2e6;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        table th {
+            background-color: #4a0072;
+            color: white;
+        }
+
+        .download-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <div class="container">
+        <a class="back-button" onclick="showMonthCard()">⬅ Back</a>
+        <h1>Monthly Reports</h1>
+        <div id="months-container"></div>
+    </div>
+
+    <div id="details-container" class="details-container">
+        
+        <h2 id="details-title"></h2>
+        <div class="charts">
+            <div class="chart-container">
+                <h3>Category Breakdown</h3>
+                <canvas id="spendings-chart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h3>Daily Spending Trend</h3>
+                <canvas id="heartbeat-chart"></canvas>
+            </div>
+        </div>
+        <div class="top-categories">
+            <h3>Top 3 Most Spent Categories</h3>
+            <div id="top-categories"></div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Total Spending</th>
+                </tr>
+            </thead>
+            <tbody id="daily-breakdown-table"></tbody>
+        </table>
+        <a class="download-button" onclick="downloadReport()">Download Report as PDF</a>
+        <a class="back-button" onclick="showMonthCards()">⬅ Previous</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        let spendingsChart, heartbeatChart;
+
+        async function fetchMonthlyReports() {
+            try {
+                const response = await axios.get('http://localhost:3000/api/entries');
+                const entries = response.data;
+
+                const monthlyData = {};
+                entries.forEach(entry => {
+                    const day = parseInt(entry.day.replace('day', ''), 10);
+                    const month = Math.ceil(day / 20);
+
+                    if (!monthlyData[month]) monthlyData[month] = {};
+
+                    for (const [category, amount] of Object.entries(entry.data)) {
+                        monthlyData[month][category] = (monthlyData[month][category] || 0) + amount;
+                    }
+                });
+
+                const monthsContainer = document.getElementById('months-container');
+                Object.entries(monthlyData).forEach(([month, data]) => {
+                    const total = Object.values(data).reduce((a, b) => a + b, 0);
+                    const card = document.createElement('div');
+                    card.classList.add('month-card');
+                    card.innerHTML = `
+                        <div>Month ${month}</div>
+                        <div>Total: $${total.toFixed(2)}</div>
+                    `;
+                    card.onclick = () => showMonthDetails(`Month ${month}`, data);
+                    monthsContainer.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error fetching monthly reports:', error);
+            }
+        }
+
+        function showMonthDetails(label, data) {
+            const container = document.getElementById('details-container');
+            document.querySelector('.container').style.display = 'none';
+            container.style.display = 'block';
+
+            document.getElementById('details-title').textContent = label;
+
+            const categoryTotals = {};
+            for (const [category, amount] of Object.entries(data)) {
+                categoryTotals[category] = (categoryTotals[category] || 0) + amount;
+            }
+
+            const sortedCategories = Object.entries(categoryTotals).sort((a, b) => b[1] - a[1]);
+            const topCategories = sortedCategories.slice(0, 3).map(([category, amount], index) => `${index + 1}. ${category}`);
+
+            document.getElementById('top-categories').innerHTML = topCategories.join('<br>');
+
+            if (spendingsChart) spendingsChart.destroy();
+            const ctxPie = document.getElementById("spendings-chart").getContext("2d");
+            spendingsChart = new Chart(ctxPie, {
+                type: "doughnut",
+                data: {
+                    labels: Object.keys(categoryTotals),
+                    datasets: [{
+                        data: Object.values(categoryTotals),
+                        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF"]
+                    }]
+                }
+            });
+
+            if (heartbeatChart) heartbeatChart.destroy();
+            const ctxLine = document.getElementById("heartbeat-chart").getContext("2d");
+            heartbeatChart = new Chart(ctxLine, {
+                type: "line",
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: "Category Spend",
+                        data: Object.values(data),
+                        borderColor: "#6a0dad",
+                        backgroundColor: "#6a0dad",
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: "#6a0dad",
+                        pointRadius: 5
+                    }]
+                }
+            });
+
+            const dailyTable = document.getElementById("daily-breakdown-table");
+            dailyTable.innerHTML = '';
+            for (const [category, amount] of Object.entries(data)) {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${category}</td>
+                    <td>$${amount.toFixed(2)}</td>
+                `;
+                dailyTable.appendChild(row);
+            }
+        }
+
+        async function downloadReport() {
+            const { jsPDF } = window.jspdf;
+            const detailsContainer = document.getElementById("details-container");
+
+            // Capture the details section as an image
+            const canvas = await html2canvas(detailsContainer);
+            const imgData = canvas.toDataURL("image/png");
+
+            // Generate PDF
+            const pdf = new jsPDF("p", "mm", "a4");
+            const imgWidth = 190;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+            pdf.save("Monthly_Report.pdf");
+        }
+
+        function showMonthCards() {
+            document.getElementById('details-container').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        }
+
+        function showMonthCard()
+        {
+            window.location.href="../home/index.html";
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchMonthlyReports);
+    </script>
+</body>
+</html>

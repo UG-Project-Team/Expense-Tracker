@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Selection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <!-- Group Selection Section (Main Container) -->
+        <div class="form-container group-selection">
+            <div class="group family">
+                <button type="button" onclick="selectGroup('Family')">+ Family</button>
+                <h3 class="arrow"><p>Max 5 members</p></h3>
+            </div>
+
+            <div class="group friends">
+                <button type="button" onclick="selectGroup('Friends')">+ Friends</button>
+                <h3 class="arrow"><p>Max 10 members</p></h3>
+            </div>
+
+            <div class="group business">
+                <button type="button" onclick="selectGroup('Business')">+ Business</button>
+                <h3 class="arrow"><p>Max 10 members</p></h3>
+            </div>
+        </div>
+
+        <!-- Right Section (Main Container remains unchanged) -->
+        <div class="toggle-container">
+            <div class="toggle-right">
+                <div class="toggle-panel">
+                    <h1>Add your Family, Friend, or Favorite Contact</h1>
+                    <p>Add members to family, friends, or business categories easily.</p>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-right-button">
+            <button id="nextStepButton" disabled>Next Step</button>
+        </div>
+    </div>
+
+    <!-- Section for Members and Form Below the Main Container -->
+    <div class="groups-section" id="groupsSection"></div>
+
+    <!-- Target Questions Section -->
+    <div class="target-section" id="targetSection" style="display: none;">
+        <h2>Set Your Financial Targets</h2>
+        <form>
+            <label for="monthlyTarget">Monthly Target:</label>
+            <input type="number" id="monthlyTarget" placeholder="Enter your monthly target" required>
+            
+            <label for="weeklyTarget">Weekly Target:</label>
+            <input type="number" id="weeklyTarget" placeholder="Enter your weekly target" required>
+            
+            <button type="button" onclick="saveTargets()">Save Targets</button>
+        </form>
+    </div>
+
+    <script>
+        let membersData = {
+            Family: [],
+            Friends: [],
+            Business: []
+        };
+
+        // Function to handle group selection and render its section dynamically
+        function selectGroup(group) {
+            if (!document.getElementById(group + 'Section')) {
+                const groupSectionHtml = `
+                    <div id="${group}Section" class="group-area">
+                        <h2>${group} Members</h2>
+                        <div id="${group}MembersContainer" class="members-list"></div>
+                        <button type="button" class="floating-add-button" onclick="showAddMemberForm('${group}')">+ Add Member</button>
+                        <div id="${group}FormContainer"></div>
+                    </div>
+                `;
+                document.getElementById('groupsSection').insertAdjacentHTML('beforeend', groupSectionHtml);
+            }
+        }
+
+        // Function to show the add member form
+        function showAddMemberForm(group) {
+            const formHtml = `
+                <div class="floating-form">
+                    <input type="text" id="${group}Name" placeholder="Name" required>
+                    <input type="text" id="${group}Username" placeholder="Username" required>
+                    <input type="password" id="${group}Password" placeholder="Password" required>
+                    <button type="button" class="floating-submit-btn" onclick="addMember('${group}')">Submit</button>
+                </div>
+            `;
+            document.getElementById(group + 'FormContainer').innerHTML = formHtml;
+        }
+
+        // Function to add a new member and display them below their respective group
+        async function addMember(group) {
+            const maxMembers = group === 'Family' ? 5 : 10;
+
+            if (membersData[group].length < maxMembers) {
+                const name = document.getElementById(group + 'Name').value;
+                const username = document.getElementById(group + 'Username').value;
+                const password = document.getElementById(group + 'Password').value;
+
+                if (name && username && password) {
+                    try {
+                        const response = await fetch('http://localhost:3001/add-member', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ group, name, username, password })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const data = await response.json();
+                        if (data.message === 'Member added successfully') {
+                            membersData[group].push({ name, username });
+                            displayMembers(group);
+                            document.getElementById(group + 'FormContainer').innerHTML = ''; // Clear the form
+                            showTargetSection();
+                        } else {
+                            alert("Failed to add member.");
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert("An error occurred while adding the member.");
+                    }
+                } else {
+                    alert("Please fill in all fields.");
+                }
+            } else {
+                alert(`You can only add up to ${maxMembers} members to the ${group} group.`);
+            }
+        }
+
+        // Function to display members for the selected group
+        function displayMembers(group) {
+            const membersHtml = membersData[group].map((member, index) => `
+                <div class="member-button">
+                    <button class="styled-button">${member.name} (${member.username})</button>
+                    <button type="button" class="remove-button" onclick="removeMember('${group}', ${index})">✖</button>
+                </div>
+            `).join('');
+            document.getElementById(group + 'MembersContainer').innerHTML = membersHtml;
+        }
+
+        // Function to remove a member from the list
+        function removeMember(group, index) {
+            membersData[group].splice(index, 1);
+            displayMembers(group);
+            showTargetSection();
+        }
+
+        // Function to show the target section if there are members in any group
+        function showTargetSection() {
+            const hasMembers = Object.values(membersData).some(group => group.length > 0);
+            document.getElementById('targetSection').style.display = hasMembers ? 'block' : 'none';
+        }
+
+        // Function to save targets, enable the Next button, and hide the target section
+        async function saveTargets() {
+            const monthlyTarget = document.getElementById('monthlyTarget').value;
+            const weeklyTarget = document.getElementById('weeklyTarget').value;
+
+            if (monthlyTarget && weeklyTarget) {
+                try {
+                    const response = await fetch('http://localhost:3001/save-targets', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ monthlyTarget, weeklyTarget })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    if (data.message === 'Targets saved successfully') {
+                        alert(`Targets saved! Monthly: ${monthlyTarget}, Weekly: ${weeklyTarget}`);
+                        enableNextButton();
+                        hideTargetSection();
+                    } else {
+                        alert("Failed to save targets.");
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert("An error occurred while saving targets.");
+                }
+            } else {
+                alert("Please fill in both target fields.");
+            }
+        }
+
+        // Function to enable the Next Step button
+        function enableNextButton() {
+            const nextButton = document.getElementById('nextStepButton');
+            nextButton.disabled = false;
+        }
+
+        // Function to hide the target section
+        function hideTargetSection() {
+            document.getElementById('targetSection').style.display = 'none';
+        }
+
+        // Event listener for Next Step button
+        document.getElementById('nextStepButton').addEventListener('click', function() {
+            window.location.href = '../home/index.html';  // Redirect to Profile page
+        });
+    </script>
+</body>
+</html>
+
+

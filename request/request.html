@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Input Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Button Styling */
+        button {
+            display: inline-block;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #a5a1f2;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 20px;
+        }
+
+        button:hover {
+            background-color: #8f8de4;
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            background-color: #8f8cea;
+            transform: translateY(1px);
+        }
+
+        /* Grid Styling for Requests */
+        #request-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Two requests per row */
+            gap: 20px; /* Space between grid items */
+            margin-top: 20px;
+        }
+
+        .request-item {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .request-item h4 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .request-item p {
+            margin: 0;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Page Layout */
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <br>
+    <button onclick="submit()">Back</button>
+    <div class="container">
+        <h1>Submitted Requests</h1>
+        <div id="request-container">
+            <!-- Submitted data will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Load and display submitted requests in a grid layout
+        document.addEventListener('DOMContentLoaded', function () {
+            const requestContainer = document.getElementById('request-container');
+            const submittedRequests = JSON.parse(localStorage.getItem('submittedRequests')) || [];
+
+            if (submittedRequests.length > 0) {
+                submittedRequests.forEach((request, index) => {
+                    const requestItem = document.createElement('div');
+                    requestItem.classList.add('request-item');
+
+                    const requestTitle = document.createElement('h4');
+                    requestTitle.textContent = `Request #${index + 1}`;
+                    requestItem.appendChild(requestTitle);
+
+                    for (const [item, amount] of Object.entries(request)) {
+                        const requestDetail = document.createElement('p');
+                        requestDetail.textContent = `${item}: $${amount}`;
+                        requestItem.appendChild(requestDetail);
+                    }
+
+                    requestContainer.appendChild(requestItem);
+                });
+            } else {
+                const noRequestsMessage = document.createElement('p');
+                noRequestsMessage.textContent = 'No submitted requests found.';
+                requestContainer.appendChild(noRequestsMessage);
+            }
+        });
+
+        // Back button logic
+        function submit() {
+            window.location.href = '../home/index.html';
+        }
+    </script>
+</body>
+</html>

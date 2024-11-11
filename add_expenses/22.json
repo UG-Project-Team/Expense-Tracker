@@ -1,0 +1,1067 @@
+[{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a0f"
+  },
+  "day": "day1",
+  "data": {
+    "Water": 150,
+    "Electricity": 300,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a10"
+  },
+  "day": "day2",
+  "data": {
+    "Water": 160,
+    "Electricity": 320,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a11"
+  },
+  "day": "day3",
+  "data": {
+    "Water": 170,
+    "Electricity": 340,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a12"
+  },
+  "day": "day4",
+  "data": {
+    "Water": 180,
+    "Electricity": 300,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a13"
+  },
+  "day": "day5",
+  "data": {
+    "Water": 190,
+    "Electricity": 320,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a14"
+  },
+  "day": "day6",
+  "data": {
+    "Water": 150,
+    "Electricity": 340,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a15"
+  },
+  "day": "day7",
+  "data": {
+    "Water": 160,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a16"
+  },
+  "day": "day8",
+  "data": {
+    "Water": 170,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a17"
+  },
+  "day": "day9",
+  "data": {
+    "Water": 180,
+    "Electricity": 340,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a18"
+  },
+  "day": "day10",
+  "data": {
+    "Water": 190,
+    "Electricity": 300,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a19"
+  },
+  "day": "day11",
+  "data": {
+    "Water": 150,
+    "Electricity": 320,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a1a"
+  },
+  "day": "day12",
+  "data": {
+    "Water": 160,
+    "Electricity": 340,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a1b"
+  },
+  "day": "day13",
+  "data": {
+    "Water": 170,
+    "Electricity": 300,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a1c"
+  },
+  "day": "day14",
+  "data": {
+    "Water": 180,
+    "Electricity": 320,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a1d"
+  },
+  "day": "day15",
+  "data": {
+    "Water": 190,
+    "Electricity": 340,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a1e"
+  },
+  "day": "day16",
+  "data": {
+    "Water": 150,
+    "Electricity": 300,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a1f"
+  },
+  "day": "day17",
+  "data": {
+    "Water": 160,
+    "Electricity": 320,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a20"
+  },
+  "day": "day18",
+  "data": {
+    "Water": 170,
+    "Electricity": 340,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a21"
+  },
+  "day": "day19",
+  "data": {
+    "Water": 180,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a22"
+  },
+  "day": "day20",
+  "data": {
+    "Water": 190,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a23"
+  },
+  "day": "day21",
+  "data": {
+    "Water": 150,
+    "Electricity": 340,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a24"
+  },
+  "day": "day22",
+  "data": {
+    "Water": 160,
+    "Electricity": 300,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a25"
+  },
+  "day": "day23",
+  "data": {
+    "Water": 170,
+    "Electricity": 320,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a26"
+  },
+  "day": "day24",
+  "data": {
+    "Water": 180,
+    "Electricity": 340,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32285dd42c21f37b7a27"
+  },
+  "day": "day25",
+  "data": {
+    "Water": 190,
+    "Electricity": 300,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a29"
+  },
+  "day": "day26",
+  "data": {
+    "Water": 160,
+    "Electricity": 320,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a2a"
+  },
+  "day": "day27",
+  "data": {
+    "Water": 170,
+    "Electricity": 340,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a2b"
+  },
+  "day": "day28",
+  "data": {
+    "Water": 180,
+    "Electricity": 300,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a2c"
+  },
+  "day": "day29",
+  "data": {
+    "Water": 190,
+    "Electricity": 320,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a2d"
+  },
+  "day": "day30",
+  "data": {
+    "Water": 150,
+    "Electricity": 340,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a2e"
+  },
+  "day": "day31",
+  "data": {
+    "Water": 160,
+    "Electricity": 300,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a2f"
+  },
+  "day": "day32",
+  "data": {
+    "Water": 170,
+    "Electricity": 320,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a30"
+  },
+  "day": "day33",
+  "data": {
+    "Water": 180,
+    "Electricity": 340,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a31"
+  },
+  "day": "day34",
+  "data": {
+    "Water": 190,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32815dd42c21f37b7a32"
+  },
+  "day": "day35",
+  "data": {
+    "Water": 150,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a34"
+  },
+  "day": "day35",
+  "data": {
+    "Water": 190,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a35"
+  },
+  "day": "day36",
+  "data": {
+    "Water": 150,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a36"
+  },
+  "day": "day37",
+  "data": {
+    "Water": 160,
+    "Electricity": 340,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a37"
+  },
+  "day": "day38",
+  "data": {
+    "Water": 170,
+    "Electricity": 300,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a38"
+  },
+  "day": "day39",
+  "data": {
+    "Water": 180,
+    "Electricity": 320,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a39"
+  },
+  "day": "day40",
+  "data": {
+    "Water": 190,
+    "Electricity": 340,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a3a"
+  },
+  "day": "day41",
+  "data": {
+    "Water": 150,
+    "Electricity": 300,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a3b"
+  },
+  "day": "day42",
+  "data": {
+    "Water": 160,
+    "Electricity": 320,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a3c"
+  },
+  "day": "day43",
+  "data": {
+    "Water": 170,
+    "Electricity": 340,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a3d"
+  },
+  "day": "day44",
+  "data": {
+    "Water": 180,
+    "Electricity": 300,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a3e"
+  },
+  "day": "day45",
+  "data": {
+    "Water": 190,
+    "Electricity": 320,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a3f"
+  },
+  "day": "day46",
+  "data": {
+    "Water": 150,
+    "Electricity": 340,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a40"
+  },
+  "day": "day47",
+  "data": {
+    "Water": 160,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a41"
+  },
+  "day": "day48",
+  "data": {
+    "Water": 170,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a42"
+  },
+  "day": "day49",
+  "data": {
+    "Water": 180,
+    "Electricity": 340,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a43"
+  },
+  "day": "day50",
+  "data": {
+    "Water": 190,
+    "Electricity": 300,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a44"
+  },
+  "day": "day51",
+  "data": {
+    "Water": 150,
+    "Electricity": 320,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a45"
+  },
+  "day": "day52",
+  "data": {
+    "Water": 160,
+    "Electricity": 340,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a46"
+  },
+  "day": "day53",
+  "data": {
+    "Water": 170,
+    "Electricity": 300,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a47"
+  },
+  "day": "day54",
+  "data": {
+    "Water": 180,
+    "Electricity": 320,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a48"
+  },
+  "day": "day55",
+  "data": {
+    "Water": 190,
+    "Electricity": 340,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a49"
+  },
+  "day": "day56",
+  "data": {
+    "Water": 150,
+    "Electricity": 300,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a4a"
+  },
+  "day": "day57",
+  "data": {
+    "Water": 160,
+    "Electricity": 320,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a4b"
+  },
+  "day": "day58",
+  "data": {
+    "Water": 170,
+    "Electricity": 340,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a4c"
+  },
+  "day": "day59",
+  "data": {
+    "Water": 180,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e32de5dd42c21f37b7a4d"
+  },
+  "day": "day60",
+  "data": {
+    "Water": 190,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a4f"
+  },
+  "day": "day61",
+  "data": {
+    "Water": 160,
+    "Electricity": 320,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a50"
+  },
+  "day": "day62",
+  "data": {
+    "Water": 170,
+    "Electricity": 340,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a51"
+  },
+  "day": "day63",
+  "data": {
+    "Water": 180,
+    "Electricity": 300,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a52"
+  },
+  "day": "day64",
+  "data": {
+    "Water": 190,
+    "Electricity": 320,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a53"
+  },
+  "day": "day65",
+  "data": {
+    "Water": 150,
+    "Electricity": 340,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a54"
+  },
+  "day": "day66",
+  "data": {
+    "Water": 160,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a55"
+  },
+  "day": "day67",
+  "data": {
+    "Water": 170,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a56"
+  },
+  "day": "day68",
+  "data": {
+    "Water": 180,
+    "Electricity": 340,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a57"
+  },
+  "day": "day69",
+  "data": {
+    "Water": 190,
+    "Electricity": 300,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a58"
+  },
+  "day": "day70",
+  "data": {
+    "Water": 150,
+    "Electricity": 320,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a59"
+  },
+  "day": "day71",
+  "data": {
+    "Water": 160,
+    "Electricity": 340,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a5a"
+  },
+  "day": "day72",
+  "data": {
+    "Water": 170,
+    "Electricity": 300,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a5b"
+  },
+  "day": "day73",
+  "data": {
+    "Water": 180,
+    "Electricity": 320,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a5c"
+  },
+  "day": "day74",
+  "data": {
+    "Water": 190,
+    "Electricity": 340,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a5d"
+  },
+  "day": "day75",
+  "data": {
+    "Water": 150,
+    "Electricity": 300,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a5e"
+  },
+  "day": "day76",
+  "data": {
+    "Water": 160,
+    "Electricity": 320,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a5f"
+  },
+  "day": "day77",
+  "data": {
+    "Water": 170,
+    "Electricity": 340,
+    "Groceries": 215,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a60"
+  },
+  "day": "day78",
+  "data": {
+    "Water": 180,
+    "Electricity": 300,
+    "Groceries": 230,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a61"
+  },
+  "day": "day79",
+  "data": {
+    "Water": 190,
+    "Electricity": 320,
+    "Groceries": 245,
+    "Rent": 1200,
+    "Internet": 105
+  }
+},
+{
+  "_id": {
+    "$oid": "672e33105dd42c21f37b7a62"
+  },
+  "day": "day80",
+  "data": {
+    "Water": 150,
+    "Electricity": 340,
+    "Groceries": 200,
+    "Rent": 1200,
+    "Internet": 100
+  }
+},
+{
+  "_id": {
+    "$oid": "672e3358577cf01513078b69"
+  },
+  "day": "day36",
+  "data": {
+    "+ Fuel⛽": 200,
+    "+ Public Transport🚌": 100,
+    "+ Parking Fees🅿️": 300,
+    "+ Tolls🛣️": 500,
+    "+ Taxi/Rideshare🚖": 400
+  },
+  "__v": 0
+}]

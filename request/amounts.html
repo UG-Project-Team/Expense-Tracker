@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Amounts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+   
+        .category-header {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .category-container {
+            margin-bottom: 30px; 
+        }
+
+      
+        .items-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+       
+        .item-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+
+       
+        .item-name {
+            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            background-color: #b3e5fc;
+            color: #333;
+            display: inline-block;
+        }
+
+      
+        .item-amount input {
+            width: 100px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+        }
+
+       
+        .submit-btn {
+            display: block;
+            margin: 40px auto;
+            padding: 15px 30px;
+            background-color: #90ee90;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #333;
+        }
+
+        .submit-btn:hover {
+            background-color: #76c76b;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enter Amounts for Selected Items</h1>
+
+    <div id="item-list"></div>
+
+    <button class="submit-btn" onclick="submit()">Submit</button>
+
+    <script>
+        // Retrieve selected items from localStorage
+let selectedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+
+// Filter out unwanted items
+selectedItems = selectedItems.filter(item => item.name !== 'Proceed');
+
+// Group items by category
+const groupedItems = selectedItems.reduce((groups, item) => {
+    const category = item.category;
+    if (!groups[category]) {
+        groups[category] = [];
+    }
+    groups[category].push(item.name);
+    return groups;
+}, {});
+
+// Populate the item list with grouped inputs for each category
+const itemList = document.getElementById('item-list');
+for (const [category, items] of Object.entries(groupedItems)) {
+    // Create a category header
+    const categoryContainer = document.createElement('div');
+    categoryContainer.classList.add('category-container');
+
+    const categoryHeader = document.createElement('h2');
+    categoryHeader.classList.add('category-header');
+    categoryHeader.textContent = category;
+    categoryContainer.appendChild(categoryHeader);
+
+    // Create a container for the items under this category
+    const itemsContainer = document.createElement('div');
+    itemsContainer.classList.add('items-container');
+
+    // Create and append items for this category
+    items.forEach(item => {
+        const itemRow = document.createElement('div');
+        itemRow.classList.add('item-row');
+        itemRow.innerHTML = `
+            <div class="item-name">${item}</div>
+            <div class="item-amount">
+                <input type="number" placeholder="Enter amount" data-item="${item}">
+            </div>
+        `;
+        itemsContainer.appendChild(itemRow);
+    });
+
+    // Append items container to category container
+    categoryContainer.appendChild(itemsContainer);
+    itemList.appendChild(categoryContainer);
+}
+
+document.querySelector('.submit-btn').addEventListener('click', function () {
+    const amounts = {};
+
+    // Collect all entered amounts
+    document.querySelectorAll('.item-amount input').forEach(input => {
+        const itemName = input.getAttribute('data-item');
+        const amount = parseFloat(input.value) || 0;
+        amounts[itemName] = amount;
+    });
+
+    // Retrieve existing requests or initialize an empty array
+    const existingRequests = JSON.parse(localStorage.getItem('submittedRequests')) || [];
+    existingRequests.push(amounts);
+
+    // Store the updated requests back in localStorage
+    localStorage.setItem('submittedRequests', JSON.stringify(existingRequests));
+
+    // Set a flag in localStorage to indicate a new request
+    localStorage.setItem('newRequest', 'true');
+
+ 
+
+
+    // Redirect to the home page
+    window.location.href = 'memberHome.html';
+});
+
+    </script>
+    
+</body>
+</html>

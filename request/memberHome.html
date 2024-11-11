@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>EXPENSE TRACKER</title>
+
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+                        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="css/templatemo-topic-listing.css" rel="stylesheet"> 
+        
+        <style>
+            
+/* General Layout Styling */
+.container-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Left part takes 1fr, right part takes 1fr */
+    grid-template-rows: auto; /* Adjust rows automatically */
+    height: 400px; /* Height of the container */
+    width: 100%; /* Full width */
+    gap: 10px; /* Space between sections */
+     border-radius: 20px; /* Rounded edges for container */
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    overflow: hidden; /* Hide overflow for a clean design */
+}
+
+/* Left Side (One Part) */
+.left-part {
+    background-color: rgba(145, 113, 183, 0.3); /* Light purple with transparency */
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd7e0;
+    flex-direction: column;
+    border-radius: 20px ; /* Divider between left and right */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.left-part:hover {
+    background-color: #ebe1ff; /* Change background color on hover */
+    transform: scale(1.02); /* Slight zoom for interactivity */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Right Container (Two Parts) */
+.right-container {
+    display: flex;
+    flex-direction: column; /* Stack top-right and bottom-right vertically */
+    gap: 10px; /* Space between right sections */
+}
+
+.right-part {
+    background-color: rgba(145, 113, 183, 0.3); /* Light purple with transparency */
+    flex: 1; /* Equal height for top and bottom parts */
+     border-radius: 20px; /* Rounded corners for right side */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #ddd7e0; /* Subtle border */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.right-part:hover {
+    background-color: #f9f1ff; /* Change background color on hover */
+    transform: scale(1.02); /* Slight zoom for interactivity */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+/* Remove Bottom Border for Bottom Right */
+.bottom-right {
+    border: none; /* Cleaner look for the bottom-right corner */
+}
+
+/* Typography for Sections */
+.left-part h6,
+.right-part h6 {
+    font-size: 1.5rem; /* Larger, bold headings */
+    color: #333; /* Dark text color for emphasis */
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.left-part p,
+.right-part p {
+    font-size: 1rem; /* Readable paragraph text size */
+    color: #666; /* Subtle gray color for descriptions */
+    margin: 10px;
+}
+
+/* Filled Containers (Reusable Component) */
+.filled-container {
+    width: 100%; /* Full width */
+    padding: 20px; /* Internal padding */
+    background-color: #ffffff; /* Clean white background */
+    border: 2px solid #ddd; /* Subtle gray border */
+    border-radius: 20px; /* Rounded edges */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    text-align: center; /* Center text */
+    transition: all 0.3s ease; /* Smooth transition for hover */
+}
+
+.filled-container:hover {
+    background-color: #f3ebff; /* Slight background color change */
+    transform: scale(1.03); /* Slight zoom effect */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Custom Block Overlay (Reusable Component) */
+.custom-block-overlay {
+    position: relative;
+    overflow: hidden;
+    border-radius: 26px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for modern feel */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.custom-block-overlay:hover {
+    transform: translateY(-5px); /* Lift the block on hover */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+         
+
+         
+ /* Hide the pop-up by default */
+ .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        width: 300px;
+        text-align: center;
+    }
+
+    /* Show the pop-up when it has the "active" class */
+    .popup.active {
+        display: block;
+    }
+
+    /* Styling for the pop-up content */
+    .popup-content h3 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .popup-content p {
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #555;
+    }
+
+    .popup-content label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .popup-content input,
+    .popup-content textarea {
+        width: 100%;
+        margin-top: 5px;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    .popup-content button {
+        margin-top: 15px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .popup-content .submit {
+        background-color: #6c63ff;
+        color: white;
+    }
+
+    .popup-content .cancel-btn {
+        background-color: #e0e0e0;
+        color: #333;
+    }
+
+</style> 
+
+
+    </head>
+    
+    <body id="top">
+
+        <main>
+
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html">
+                        <i class="bi-back"></i>
+                        <span>EXPENSE TRACKER</span>
+                    </a>
+             
+                    <div class="d-none d-lg-block" onclick="signout()">
+                        <a class="navbar-icon bi-person smoothscroll"></a>
+                       
+                    </div>
+                    </div>
+                </div>
+            </nav>
+            
+
+            <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+                <div class="container">
+                    
+                    <div class="row">
+
+                        <div class="col-lg-8 col-12 mx-auto">
+                            <h1 class="text-white text-center">Manage . Expense . Easily</h1>
+
+                            <h6 class="text-center">platform for money management around your world</h6>
+
+                            </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="featured-section">
+                <div class="container">
+                    <div class="row justify-content-center">
+
+                        <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                            <div class="custom-block bg-white shadow-lg">
+                                <a href="index.html">
+                                    <div class="d-flex">
+                                        <div>
+                                            <h5 class="mb-2">ADD EXPENSE</h5>
+
+                                            <p class="mb-0">"When it comes to managing your finances, the Add Expense feature is your go-to solution for effortlessly tracking your spending.</p>
+                                        </div>
+
+                                         </div>
+
+                                    <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="custom-block-image img-fluid" alt="">
+                                </a>
+                            </div>
+                        </div>
+
+                       
+<div class="col-lg-6 col-12">
+    <div class=" custom-block-overlay">
+        <div class="d-flex flex-column h-100">
+            <img src="images/businesswoman-using-tablet-analysis.jpg" class="custom-block-image" alt="">
+
+            <div class="custom-block-overlay-text d-flex">
+               
+
+
+              
+                    <div class="container-layout">
+                        <!-- Left Side (One Part) -->
+                        <div class="left-part" onclick="draft()">
+                            <h6><b>Draft</b></h6>
+                            <p>Draft and Review</p>
+                        </div>
+                
+                        <!-- Right Side (Two Parts) -->
+                        <div class="right-container">
+                            <!-- Top Right -->
+                           
+                            <!-- Bottom Right -->
+                            <div class="right-part bottom-right" onclick="showReportsPopup()">
+                                <h6><b>Reports</b></h6>
+                                <p>Reports</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            <!-- Reports Popup -->
+  <div id="reports-popup" class="popup">
+    <div class="popup-content">
+        <h3>Reports</h3>
+        <p>Select the type of report:</p>
+        <button class="action-btn" onclick="week()">Weekly</button>
+        <button class="action-btn" onclick="month()">Monthly</button>
+        <button class="action-btn" onclick="year()">Yearly</button>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+</div>
+                     
+            
+            
+        </div>
+    </div>
+</div>
+
+</div>
+ </div>
+ </div>
+            </section>
+
+            <script src="js/jquery.min.js"></script>
+            <script>
+             
+            
+                // Close the currently active popup
+                function closePopup() {
+                    const popup = document.getElementById('popup');
+                    popup.classList.remove('active');
+                }
+            
+                 
+                
+                function showReportsPopup() {
+                const popup = document.getElementById('reports-popup');
+                popup.classList.add('active');
+            }
+
+            function closePopup() {
+                const popups = document.querySelectorAll('.popup');
+                popups.forEach(popup => popup.classList.remove('active'));
+            }
+
+            function generateReport(type) {
+                alert(`${type} report selected.`);
+                closePopup();
+            }
+                // Load expenses on page load
+                document.addEventListener('DOMContentLoaded', loadExpenses);
+
+                function draft()
+                {
+                    window.location.href="../add_expenses/edit_entries.html";
+                }
+
+                function week()
+                {
+                    window.location.href="../add_expenses/weekreport.html";
+                }
+
+                function month()
+                {
+                    window.location.href="../add_expenses/month.html";
+                }
+
+                function year()
+                {
+                    window.location.href="../add_expenses/year.html";
+                }
+
+                function signout()
+                {
+                    window.location.href="../login/index.html";
+                }
+
+            </script>
+ 
+          <script src="server.js"></script>
+          
+   
+</main>
+</body>
+</html>
+
+           

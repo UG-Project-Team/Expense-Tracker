@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+        }
+
+        .profile-container {
+            display: flex;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            width: 90%;
+            max-width: 1300px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .curve-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(to right, #5c6bc0, #512da8);
+            border-bottom-right-radius: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .left-section {
+            flex: 1;
+            padding: 20px;
+            margin-left: 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #d1c4e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .username-text, .email-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #6a0dad;
+            margin: 10px 0;
+        }
+
+        .email-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .forget-password {
+            color: blue;
+            text-decoration: underline;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .goals {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60%;
+            margin-top: 20px;
+        }
+
+        .goals label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .goals input {
+            width: 50%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #333;
+        }
+
+        .logout-button {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            padding: 10px;
+            background-color: #d1c4e9;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #3700b3;
+        }
+
+        .members-container {
+            flex: 0.5;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-left: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .members-container h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .category {
+            margin-bottom: 20px;
+        }
+
+        .category h4 {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: #555;
+        }
+
+        .member-button {
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 5px;
+            width: 45%;
+            cursor: pointer;
+        }
+
+        .add-button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        .remove-button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .remove-button:hover {
+            background-color: #d32f2f;
+        }
+
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            z-index: 1000;
+        }
+
+        .popup-container.active {
+            display: block;
+        }
+
+        .popup-header {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .popup-body label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .popup-body input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .popup-footer {
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .popup-footer button {
+            padding: 8px 16px;
+            background-color: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Curve Section in Top-Left Corner with "My Profile" Title -->
+        <div class="curve-section">
+            My Profile
+        </div>
+
+        <!-- Left Section (Profile Content) -->
+        <div class="left-section">
+            <div class="profile-photo">
+                <img src="avatar.jpeg" alt="Profile Photo">
+            </div>
+            <br>
+            <div class="username-text">User Name</div> <!-- Username as text -->
+
+            <!-- Credentials Div (Email Text and Forget Password) -->
+            <div class="credentials">
+                <div class="email-section">
+                    <div class="email-text">Email Id</div> <!-- Email as text -->
+                    <span class="forget-password">Forget Password?</span>
+                </div>
+            </div>
+
+            <!-- Goals Div (Centered) -->
+            <div class="goals">
+                <label for="goal">Goal</label>
+                <label for="monthly">Monthly:</label>
+                <input type="number" id="monthly" placeholder="Monthly goal">
+                <label for="yearly">Yearly:</label>
+                <input type="number" id="yearly" placeholder="Yearly goal">
+            </div>
+
+            <!-- Logout Button (Bottom Left) -->
+            
+            <button class="logout-button" id="signout-button">Signout</button>
+        </div>
+
+        <!-- Separate Members Container -->
+        <div class="members-container">
+            <h3>Members</h3>
+            <div class="category">
+                <h4>Family <button class="add-button">+</button></h4>
+                <button class="member-button">Member 1</button>
+                <button class="member-button">Member 2</button>
+            </div>
+            <div class="category">
+                <h4>Friends <button class="add-button">+</button></h4>
+                <button class="member-button">Friend 1</button>
+                <button class="member-button">Friend 2</button>
+            </div>
+            <div class="category">
+                <h4>Business <button class="add-button">+</button></h4>
+                <button class="member-button">Member 1</button>
+            </div>
+        </div>
+
+        <div class="popup-container" id="popup">
+            <span class="popup-close" id="popup-close">&times;</span>
+            <div class="popup-header">Update Profile</div>
+            <div class="popup-body">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" placeholder="Enter new password">
+                <label for="profile-photo">Profile Photo</label>
+                <input type="file" id="profile-photo">
+            </div>
+            <div class="popup-footer">
+                <button id="save-changes">Save Changes</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Existing Forget Password Popup Logic
+        const forgetPassword = document.querySelector('.forget-password');
+        const popup = document.getElementById('popup');
+        const popupClose = document.getElementById('popup-close');
+    
+        forgetPassword.addEventListener('click', () => {
+            popup.classList.add('active');
+        });
+    
+        popupClose.addEventListener('click', () => {
+            popup.classList.remove('active');
+        });
+    
+        document.getElementById('save-changes').addEventListener('click', () => {
+            const newPassword = document.getElementById('new-password').value;
+            const profilePhoto = document.getElementById('profile-photo').files[0];
+            if (newPassword || profilePhoto) {
+                alert('Changes saved!');
+            }
+            popup.classList.remove('active');
+        });
+    
+        // Signout Button Logic
+        const signoutButton = document.getElementById('signout-button');
+        signoutButton.addEventListener('click', () => {
+            // Redirect to the login page
+            window.location.href = 'index.html'; // Replace 'login.html' with the actual path to your login page
+        });
+    </script>
+    
+
+</body>
+</html>

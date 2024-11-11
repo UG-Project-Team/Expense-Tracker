@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .large-card {
+            grid-column: span 2;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .large-card h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .large-card .card-content {
+            height: 200px;
+            background-image: linear-gradient(to right, #90ee90, #007bff);
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .small-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .small-card h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .small-card p {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .small-card .highlight {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .ranking-table {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            grid-column: span 2;
+        }
+
+        .ranking-table h2 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .ranking-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ranking-table table th, .ranking-table table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .ranking-table table th {
+            background-color: #90ee90;
+        }
+
+        /* Pie chart styling */
+        .pie-chart {
+            text-align: center;
+        }
+
+        .pie-chart canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Expense Dashboard</h1>
+
+    <div class="dashboard-container">
+        <!-- Large Card for Graph -->
+        
+
+        <!-- Card for Total Expenses -->
+        <div class="small-card">
+            <h2>Total Expenses</h2>
+            <p class="highlight">$<span id="total-expenses">0</span></p>
+        </div>
+
+        <!-- Card for Change/Percentage -->
+        
+
+        <!-- Pie Chart Card -->
+       
+
+        <!-- Expense Ranking Table -->
+        <div class="ranking-table">
+            <h2>Expense Rankings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="expense-table-body">
+                    <!-- Dynamic items will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Fetch stored expense data from localStorage
+        const amounts = JSON.parse(localStorage.getItem('amounts')) || {};
+
+        // Calculate the total expenses
+        let totalExpenses = 0;
+        const categoryBreakdown = {};
+        for (let item in amounts) {
+            totalExpenses += amounts[item];
+            // Group expenses by category (simple categorization for demo)
+            const category = item.includes('Fuel') || item.includes('Taxi') ? 'Transportation' : 'Other';
+            if (!categoryBreakdown[category]) {
+                categoryBreakdown[category] = 0;
+            }
+            categoryBreakdown[category] += amounts[item];
+        }
+
+        // Update the total expenses in the UI
+        document.getElementById('total-expenses').textContent = totalExpenses.toFixed(2);
+
+        // Populate the rankings table
+        const expenseTableBody = document.getElementById('expense-table-body');
+        for (let item in amounts) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${item}</td><td>$${amounts[item].toFixed(2)}</td>`;
+            expenseTableBody.appendChild(row);
+        }
+
+        // Pie chart for category breakdown
+        const ctx = document.getElementById('category-pie-chart').getContext('2d');
+        const pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(categoryBreakdown),
+                datasets: [{
+                    data: Object.values(categoryBreakdown),
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+
+</body>
+</html>
